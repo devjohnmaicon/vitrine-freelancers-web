@@ -1,0 +1,123 @@
+{
+  "jobs": [
+    {
+      "id": 1,
+      "type": "FREELANCER",
+      "position": "Moto Entregador",
+      "description": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue.",
+      "date": "2021-08-01",
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "dailyValue": 150,
+      "requirements": "Moto própria",
+      "companyId": 1,
+      "companyName": "Company Maria"
+    },
+    {
+      "id": 2,
+      "type": "FREELANCER",
+      "position": "Jardineiro",
+      "description": "job 2 ",
+      "date": "2021-08-02",
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "dailyValue": 150,
+      "requirements": "Moto própria",
+      "companyId": 2,
+      "companyName": "Company João"
+    },
+    {
+      "id": 3,
+      "type": "FREELANCER",
+        "position": "Motorista",
+      "description": "job 3",
+      "date": "2021-08-03",
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "dailyValue": 150,
+      "requirements": "Moto própria",
+      "companyId": 3,
+      "companyName": "Company José"
+    },
+    {
+      "id": 4,
+      "type": "FREELANCER",
+        "position": "Motorista",
+      "description": "job 4",
+      "date": "2021-08-04",
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "dailyValue": 150,
+      "requirements": "Moto própria",
+      "companyId": 4,
+      "companyName": "Company Ana"
+    },
+    {
+      "id": 5,
+      "type": "FREELANCER",
+      "position": "Sushiman",
+      "description": "job 5",
+      "date": "2021-08-05",
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "dailyValue": 150,
+      "requirements": "Moto própria",
+      "companyId": 5,
+      "companyName": "Company Pedro"
+    },
+    {
+      "id": 6,
+      "type": "FREELANCER",
+      "position": "Sushiman",
+      "description": "job 6",
+      "date": "2021-08-06",
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "dailyValue": 150,
+      "requirements": "Moto própria",
+      "companyId": 6,
+      "companyName": "Company Lucas"
+    }
+  ],
+  "my-jobs": [
+    {
+      "id": 1,
+      "type": "FREELANCER",
+      "position": "Sushiman",
+      "description": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue.",
+      "date": "2021-08-01",
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "dailyValue": 150,
+      "requirements": "Moto própria",
+      "companyId": 1,
+      "companyName": "Company Maria"
+    },
+    {
+      "id": 2,
+      "type": "FREELANCER",
+      "position": "Sushiman",
+      "description": "job 2 ",
+      "date": "2021-08-02",
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "dailyValue": 150,
+      "requirements": "Moto própria",
+      "companyId": 2,
+      "companyName": "Company Maria"
+    },
+    {
+      "id": 3,
+      "type": "FIXO",
+      "position": "Sushiman",
+      "description": "job 3",
+      "date": "2021-08-03",
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "dailyValue": 150,
+      "requirements": "Moto própria",
+      "companyId": 3,
+      "companyName": "Company Maria"
+    }
+  ]
+}
