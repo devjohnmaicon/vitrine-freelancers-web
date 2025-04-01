@@ -11,7 +11,12 @@
       "dailyValue": 150,
       "requirements": "Moto própria",
       "companyId": 1,
-      "companyName": "Company Maria"
+      "companyName": "Company Maria",
+      "street": "Rua da Consolação",
+        "number": 123,
+      "district": "Centro",
+      "city": "São Paulo",
+      "state": "SP"
     },
     {
       "id": 2,
@@ -24,12 +29,17 @@
       "dailyValue": 150,
       "requirements": "Moto própria",
       "companyId": 2,
-      "companyName": "Company João"
+      "companyName": "Company João",
+      "street": "Rua da Consolação",
+      "number": 123,
+      "district": "Centro",
+      "city": "São Paulo",
+      "state": "SP"
     },
     {
       "id": 3,
       "type": "FREELANCER",
-        "position": "Motorista",
+      "position": "Motorista",
       "description": "job 3",
       "date": "2021-08-03",
       "startTime": "10:00",
@@ -37,12 +47,17 @@
       "dailyValue": 150,
       "requirements": "Moto própria",
       "companyId": 3,
-      "companyName": "Company José"
+      "companyName": "Company José",
+      "street": "Rua da Consolação",
+      "number": 123,
+      "district": "Centro",
+      "city": "São Paulo",
+      "state": "SP"
     },
     {
       "id": 4,
       "type": "FREELANCER",
-        "position": "Motorista",
+      "position": "Motorista",
       "description": "job 4",
       "date": "2021-08-04",
       "startTime": "10:00",
@@ -50,7 +65,12 @@
       "dailyValue": 150,
       "requirements": "Moto própria",
       "companyId": 4,
-      "companyName": "Company Ana"
+      "companyName": "Company Ana",
+      "street": "Rua da Consolação",
+      "number": 123,
+      "district": "Centro",
+      "city": "São Paulo",
+      "state": "SP"
     },
     {
       "id": 5,
@@ -63,7 +83,12 @@
       "dailyValue": 150,
       "requirements": "Moto própria",
       "companyId": 5,
-      "companyName": "Company Pedro"
+      "companyName": "Company Pedro",
+      "street": "Rua da Consolação",
+      "number": 123,
+      "district": "Centro",
+      "city": "São Paulo",
+      "state": "SP"
     },
     {
       "id": 6,
@@ -76,7 +101,12 @@
       "dailyValue": 150,
       "requirements": "Moto própria",
       "companyId": 6,
-      "companyName": "Company Lucas"
+      "companyName": "Company Lucas",
+      "street": "Rua da Consolação",
+      "number": 123,
+      "district": "Centro",
+      "city": "São Paulo",
+      "state": "SP"
     }
   ],
   "my-jobs": [
@@ -91,7 +121,11 @@
       "dailyValue": 150,
       "requirements": "Moto própria",
       "companyId": 1,
-      "companyName": "Company Maria"
+      "companyName": "Company Maria",
+      "street": "Rua da Consolação",
+      "number": 123,"district": "Centro",
+      "city": "São Paulo",
+      "state": "SP"
     },
     {
       "id": 2,
@@ -104,7 +138,12 @@
       "dailyValue": 150,
       "requirements": "Moto própria",
       "companyId": 2,
-      "companyName": "Company Maria"
+      "companyName": "Company Maria",
+      "street": "Rua da Consolação",
+      "number": 123,
+      "district": "Centro",
+      "city": "São Paulo",
+      "state": "SP"
     },
     {
       "id": 3,
@@ -117,7 +156,12 @@
       "dailyValue": 150,
       "requirements": "Moto própria",
       "companyId": 3,
-      "companyName": "Company Maria"
+      "companyName": "Company Maria",
+      "street": "Rua da Consolação",
+      "number": 123,
+      "district": "Centro",
+      "city": "São Paulo",
+      "state": "SP"
     }
   ]
 }

@@ -55,9 +55,11 @@ export default function RegisterComponent() {
                         <input type="text" placeholder="Nome da empresa" required className="input input-bordered"/>
                         <input type="text" placeholder="CNPJ*" required className="input input-bordered"/>
                         <input type="text" placeholder="Telefone" required className="input input-bordered"/>
+                        <input type="text" placeholder="Estado" required className="input input-bordered"/>
+                        <input type="text" placeholder="Rua" required className="input input-bordered"/>
+                        <input type="text" placeholder="Número" required className="input input-bordered"/>
                         <input type="text" placeholder="Bairro" required className="input input-bordered"/>
                         <input type="text" placeholder="Cidade" required className="input input-bordered"/>
-                        <input type="text" placeholder="Estado" required className="input input-bordered"/>
                     </div>
                     <div className='flex mt-8'>
                         <button type='submit' className='btn btn-neutral w-1/2 m-auto'>Cadastrar</button>

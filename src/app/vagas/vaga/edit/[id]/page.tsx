@@ -38,6 +38,7 @@ export default function EditJobPage() {
                         <div>
                             <p>Publicado: 14, Setembro. 16:40</p>
                             <h2 className="card-title text-4xl mt-3">Loja da maria</h2>
+                            <p className="text-sm">{job.street}, {job.number}, {job.district}, {job.city}, {job.state}</p>
                         </div>
                         <span
                             className="bg-neutral text-white font-bold p-3 rounded absolute top-2 right-2">FREELANCER</span>
@@ -52,7 +53,7 @@ export default function EditJobPage() {
                         <div className="flex gap-2"><CircleDollarSign/>Valor da diária: R$ {job.dailyValue} </div>
                         <div className="flex gap-2"><HandCoins/>Valor das taxas: 5 | 10 | 15</div>
                         <div className="flex gap-2"><Phone/>Contato: 61 99999-9999</div>
-                        <div className="flex gap-2"><MapPin/>Cidade/Bairro: Valparaíso de Goiás, Goiás</div>
+                        <div className="flex gap-2"><MapPin/>Endereço: {job.district},{job.city}, {job.state}</div>
                         <hr className="col-span-2 my-4 border-b-2"/>
                         <div className="col-span-2">
                             Descrição da vaga
@@ -80,7 +81,7 @@ export default function EditJobPage() {
                             <button className="btn">Cancelar</button>
                             <button className="btn btn-primary">Salvar</button>
                         </div>
-                        <button className=""><Trash color="red"  /></button>
+                        <button className=""><Trash color="red"/></button>
                     </div>
                 </div>
             </div>

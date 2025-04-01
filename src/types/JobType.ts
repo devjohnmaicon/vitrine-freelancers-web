@@ -11,4 +11,10 @@ export type JobType = {
     requirements: string;
     companyId: number;
     companyName: string;
+    companyLogo: string
+    street: string;
+    number: string;
+    district: string;
+    city: string;
+    state: string;
 }

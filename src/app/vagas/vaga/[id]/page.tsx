@@ -1,8 +1,8 @@
 "use client";
 
-import {redirect, useParams, useRouter} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {JobType} from "@/types/JobType";
-import {CalendarDays, CircleDollarSign, HandCoins, MapPin, Phone, UserRound, CircleArrowLeft} from "lucide-react";
+import {CalendarDays, CircleArrowLeft, CircleDollarSign, HandCoins, MapPin, Phone, UserRound} from "lucide-react";
 
 
 export default function JobPage() {
@@ -29,6 +29,7 @@ export default function JobPage() {
                         <div>
                             <p>Publicado: 14, Setembro. 16:40</p>
                             <h2 className="card-title text-4xl mt-3">Loja da maria</h2>
+                            <p className="text-sm">{job.street}, {job.number}, {job.district}, {job.city}, {job.state}</p>
                         </div>
                         <span
                             className="bg-neutral text-white font-bold p-3 rounded absolute top-2 right-2">FREELANCER</span>
@@ -43,8 +44,8 @@ export default function JobPage() {
                         <div className="flex gap-2"><CircleDollarSign/>Valor da diária: R$ {job.dailyValue} </div>
                         <div className="flex gap-2"><HandCoins/>Valor das taxas: 5 | 10 | 15</div>
                         <div className="flex gap-2"><Phone/>Contato: 61 99999-9999</div>
-                        <div className="flex gap-2"><MapPin/>Cidade/Bairro: Valparaíso de Goiás, Goiás</div>
-                        <hr className="col-span-2 my-4 border-b-2"/>
+                        <div className="flex gap-2"><MapPin/>Endereço: {job.district},{job.city}, {job.state}</div>
+                        <div className="divider col-span-2"></div>
                         <div className="col-span-2">
                             Descrição da vaga
                             <p className=' font-bold '>
@@ -64,7 +65,7 @@ export default function JobPage() {
                             </p>
                         </div>
                     </div>
-                    <hr className="col-span-2 my-4 border-b-2"/>
+                    <div className="divider"></div>
                     <div className='flex justify-between gap-3'>
                         <button className="btn" onClick={redirectToJobs}><CircleArrowLeft size={34}/></button>
                     </div>
