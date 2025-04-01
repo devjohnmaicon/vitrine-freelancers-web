@@ -1,11 +1,17 @@
-import {CalendarDays, CircleDollarSign, HandCoins, MapPin, Phone, UserRound} from "lucide-react";
+import {CalendarDays, CircleDollarSign, Edit, HandCoins, MapPin, Phone, Plus, UserRound} from "lucide-react";
 import {JobType} from "@/types/JobType";
-import BtnShowMoreComponent from "@/components/BtnShowMore";
 import BtncloseJobComponent from "@/components/BtnCloseJob";
-import BtnEditComponent from "@/components/BtnEdit";
+import Link from "next/link";
 
 
-export default function CardComponent({key, data, showEditButtons}: { key: number, data: JobType, showEditButtons: boolean }) {
+export default function CardComponent({key, data, showEditButtons}: {
+    key: number,
+    data: JobType,
+    showEditButtons: boolean
+}) {
+
+    const pathUrlJob = 'http://localhost:3000/vagas/vaga/'
+
     return (
         <div
             className="card max-h-56 w-full card-side bg-base-100 shadow-xl pl-3 flex justify-center items-center gap-4 cursor-pointer">
@@ -27,9 +33,7 @@ export default function CardComponent({key, data, showEditButtons}: { key: numbe
                     <span className="bg-neutral text-white font-bold p-2 rounded">{data.type}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-1">
-                    <div className="col-span-2 font-bold col-span-2 font-bold truncate">
-                        {data.description}
-                    </div>
+                    <div className="col-span-2 font-bold col-span-2 font-bold truncate">{data.description}</div>
                     <div className="flex gap-1"><UserRound/>{data.position}</div>
                     <div className="flex gap-1"><CalendarDays/> Hoje, {data.startTime} às {data.endTime}</div>
                     <div className="flex gap-1"><CircleDollarSign/> Diária: R$ {data.dailyValue} </div>
@@ -38,10 +42,10 @@ export default function CardComponent({key, data, showEditButtons}: { key: numbe
                     <div className="flex gap-1"><MapPin/> Valparaíso, Goiás</div>
                 </div>
                 <div className='flex justify-end items-center gap-2 pb-2'>
-                    <BtnShowMoreComponent id={data.id}/>
+                    <Link className='cursor-pointer btn btn-neutral btn-sm' href={`${pathUrlJob}/${data.id}`}><Plus/> INFO</Link>
                     {showEditButtons &&
                         <>
-                            <BtnEditComponent id={data.id}/>
+                            <Link href={` ${pathUrlJob}/edit/${data.id}`}><Edit/></Link>
                             <BtncloseJobComponent id={data.id}/>
                         </>
                     }
