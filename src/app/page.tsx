@@ -23,9 +23,7 @@ export default async function Home() {
                             excepturi exercitationem quasi. In deleniti eaque aut repudiandae
                             et a id nisi.
                         </p>
-                        <a href="/vagas" className="btn btn-primary">
-                            Ver vagas
-                        </a>
+                        <a href="/vagas" className="btn btn-primary">Ver vagas</a>
                     </div>
                 </div>
             </section>
@@ -35,7 +33,7 @@ export default async function Home() {
                     {
                         listJobs.slice(0, 3).map(
                             (jobData: JobType, index: number) => (
-                                <CardComponent key={index} data={jobData} showEditButtons={false} />
+                                <CardComponent key={index} data={jobData} showEditButtons={false}/>
                             ))
                     }
                     <a href="/vagas" className="w-1/2 mt-4 btn btn-neutral">
