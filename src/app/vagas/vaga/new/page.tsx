@@ -1,28 +1,10 @@
-"use client";
+'use client';
 
-import {useParams, useRouter} from "next/navigation";
-import {JobType} from "@/types/JobType";
-import {Trash2} from "lucide-react";
-import Link from "next/link";
-
-
-export default function EditJobPage() {
-    const {id} = useParams()
-    const router = useRouter()
-    const job: JobType = fetch(`http://localhost:3333/jobs/${id}`, {method: "GET"}).then((res) => res.json());
-
-    const handleDelete = async () => {
-        alert("Certeza que seja excluir a vaga?")
-    }
-
+export default function RegisterJobPage() {
     return (
         <div className="min-h-screen p-2">
             <form className='m-auto w-1/2 bg-slate-100 flex flex-col gap-3 rounded-lg border p-4 mt-5'>
-                <div className='flex justify-between items-center'>
-                    <h2 className="text-xl py-2 font-semibold">EDITAR VAGA</h2>
-                    <span onClick={handleDelete} className='cursor-pointer'><Trash2 color='red'/></span>
-                </div>
-
+                <h2 className="text-xl py-2 font-semibold">CADASTRO DA VAGA</h2>
                 <div className='divider my-2'/>
                 <div className='grid grid-cols-2 gap-3'>
                     <fieldset className="fieldset">
@@ -69,15 +51,11 @@ export default function EditJobPage() {
 
                 {/* if there is a button in form, it will close the modal */}
                 <div className='flex justify-between mt-2'>
-                    <a href='/minhas-vagas' className="btn">Cancelar</a>
-                    <div className='flex flex-col'>
-                        <span className='text-sm'>Publicado em:  14/02/2025  10:11</span>
-                        <span className='text-sm'>Última edição:  14/02/2025  11:00</span>
-                    </div>
-
-                    <button className="btn btn-primary">Salvar</button>
+                    <button className="btn">Cancelar</button>
+                    <button className="btn btn-neutral">Publicar</button>
                 </div>
             </form>
         </div>
-    );
+    )
+        ;
 }

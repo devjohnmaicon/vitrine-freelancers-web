@@ -1,7 +1,7 @@
 import CardComponent from "@/components/CardComponent";
 import {JobType} from "@/types/JobType";
 import {UserPlus} from "lucide-react";
-import NewJobComponent from "@/components/NewJobComponent";
+import Link from "next/link";
 
 
 export default async function MyJobsPage() {
@@ -18,12 +18,11 @@ export default async function MyJobsPage() {
 
 
     return (
-        <div className="w-1/2 border min-h-screen max-w-screen-lg flex flex-col m-auto p-2 rounded-lg my-2">
+        <div className="w-1/2  min-h-screen max-w-screen-lg flex flex-col m-auto p-2  my-2">
             <div>
-                {/*<button className="btn btn-primary"><UserPlus />  Cadastrar </button>*/}
-                <NewJobComponent/>
+                <Link href='/vagas/vaga/new' className='flex items-center gap-2 text-xl ml-2 underline underline-offset-4 '><UserPlus/>Cadastrar vaga</Link>
             </div>
-            <div className='flex flex-col gap-3 mt-1'>
+            <div className='bg-slate-100 flex flex-col gap-3 mt-4 p-3 rounded-lg'>
                 {
                     myJobs.map((job) => {
                         return (

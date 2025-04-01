@@ -42,10 +42,10 @@ export default function CardComponent({key, data, showEditButtons}: {
                     <div className="flex gap-1"><MapPin/> Valparaíso, Goiás</div>
                 </div>
                 <div className='flex justify-end items-center gap-2 pb-2'>
-                    <Link className='cursor-pointer btn btn-neutral btn-sm' href={`${pathUrlJob}/${data.id}`}><Plus/> INFO</Link>
+                    <Link className='cursor-pointer btn btn-outline btn-sm' href={`${pathUrlJob}/${data.id}`}><Plus size={20}/> Detalhes</Link>
                     {showEditButtons &&
                         <>
-                            <Link href={` ${pathUrlJob}/edit/${data.id}`}><Edit/></Link>
+                            <Link href={` ${pathUrlJob}/edit/${data.id}`} className='btn btn-sm btn-warning'><Edit/></Link>
                             <BtncloseJobComponent id={data.id}/>
                         </>
                     }

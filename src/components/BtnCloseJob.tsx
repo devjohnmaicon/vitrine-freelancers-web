@@ -11,6 +11,6 @@ export default function BtncloseJobComponent({id}: { id: number }) {
     };
 
     return (
-        <span className="cursor-pointer btn btn-dash  btn-sm" color="red" onClick={deleteJob}><Trash2/></span>
+        <span className="cursor-pointer btn btn-error btn-sm " color="red" onClick={deleteJob}><Trash2/></span>
     );
 };
