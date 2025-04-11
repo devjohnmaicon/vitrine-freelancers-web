@@ -1,6 +1,6 @@
 import CardComponent from "@/components/CardComponent";
 import {JobType} from "@/types/JobType";
-
+import Link from "next/link";
 
 export default async function Home() {
     const listJobs: JobType[] = await fetch('http://localhost:3333/jobs/').then((res) => res.json());
@@ -8,7 +8,7 @@ export default async function Home() {
     return (
         <div>
             <section
-                className="hero min-h-screen"
+                className="hero min-h-screen bg-base-200 bg-cover bg-center w-screen"
                 style={{
                     backgroundImage:
                         "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
@@ -27,18 +27,22 @@ export default async function Home() {
                     </div>
                 </div>
             </section>
-            <section className="py-12">
-                <div className="w-1/2 bg-slate-100 m-auto flex flex-col items-center gap-3 p-5 rounded">
-                    <h2 className="text-3xl font-semibold underline underline-offset-4 mb-4">Últimas publicações</h2>
-                    {
-                        listJobs.slice(0, 3).map(
-                            (jobData: JobType, index: number) => (
-                                <CardComponent key={index} data={jobData} showEditButtons={false}/>
-                            ))
-                    }
-                    <a href="/vagas" className="w-1/2 mt-4 btn btn-neutral">
-                        TODAS AS VAGAS
-                    </a>
+            <section className="w-full ">
+                <div className="w-1/2 bg-zinc-100 m-auto">
+                    <h2 className="text-3xl font-semibold underline underline-offset-4 my-4 p-4">Últimas publicações</h2>
+                    <div className='flex flex-col gap-4 p-4'>
+                        {
+                            listJobs.slice(0, 3).map(
+                                (jobData: JobType, index: number) => (
+                                    <CardComponent key={index} data={jobData} showEditButtons={false}/>
+                                ))
+                        }
+                        <div className='h-2'/>
+                        <Link href="/vagas" className="w-1/2 m-auto bg-zinc-900 text-white text-center p-2 rounded-full">
+                            TODAS AS VAGAS
+                        </Link>
+                    </div>
+
                 </div>
             </section>
         </div>

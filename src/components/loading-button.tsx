@@ -27,7 +27,7 @@ export default function LoadingButton({ pending }: { pending: boolean }) {
           </svg>
         </div>
       ) : (
-        "Sign in"
+        "Entrar"
       )}
     </Button>
   );

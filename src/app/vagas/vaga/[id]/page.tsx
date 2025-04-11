@@ -5,6 +5,7 @@ import {JobType} from "@/types/JobType";
 import {CalendarDays, CircleArrowLeft, CircleDollarSign, HandCoins, MapPin, Phone, UserRound} from "lucide-react";
 import TaxValue from "@/components/TaxValue";
 import {useEffect, useState} from "react";
+import {Button} from "@/components/ui/button";
 
 
 export default function JobPage() {
@@ -23,7 +24,7 @@ export default function JobPage() {
                 <div className='flex justify-between items-center'>
                     <h2 className="text-xl py-2 font-semibold">INFORMAÇÕES SOBRE A VAGA</h2>
                 </div>
-                <div className='divider my-2'/>
+                <hr className="my-3" />
                 <div className='flex gap-5 p-4 relative'>
                     <figure className="overflow-hidden flex-shrink-0 w-36 h-40 rounded-lg">
                         <img
@@ -73,9 +74,9 @@ export default function JobPage() {
                             </p>
                         </div>
                     </div>
-                    <div className="divider"></div>
+                    <hr className="my-3" />
                     <div className='flex justify-between gap-3'>
-                        <button className="btn" onClick={redirectToJobs}><CircleArrowLeft size={34}/></button>
+                        <Button variant='ghost' onClick={redirectToJobs}><CircleArrowLeft size={34}/></Button>
                     </div>
                 </div>
             </div>
