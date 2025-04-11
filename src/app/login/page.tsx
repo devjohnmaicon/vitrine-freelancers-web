@@ -50,6 +50,11 @@ export default function LoginPage() {
     <div className="flex items-center justify-center min-h-screen p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
+          <img
+              src="https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"
+              className="max-h-28 mb-3"
+              alt="Shadcn UI Navbar"
+          />
           <CardTitle className="text-3xl font-bold text-center text-gray-800">
             Welcome Back
           </CardTitle>
@@ -67,7 +72,7 @@ export default function LoginPage() {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Enter your email address"
+                        placeholder="Digite o e-mail"
                         autoComplete="off"
                         {...field}
                       />
@@ -82,11 +87,11 @@ export default function LoginPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Senha</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Enter password"
+                        placeholder="********"
                         {...field}
                       />
                     </FormControl>
@@ -96,7 +101,7 @@ export default function LoginPage() {
               />
 
               {/* Submit button will go here */}
-              <LoadingButton pending={form.formState.isSubmitting} />
+              <LoadingButton pending={form.formState.isSubmitting}  />
             </form>
           </Form>
         </CardContent>
