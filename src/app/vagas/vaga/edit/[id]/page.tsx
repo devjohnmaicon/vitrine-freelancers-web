@@ -16,15 +16,15 @@ export default function EditJobPage() {
     }
 
     return (
-        <div className="min-h-screen pt-10">
-            <form className='m-auto w-1/2 bg-zinc-100 flex flex-col gap-3 rounded-lg border p-4'>
+        <div className="min-h-screen pt-10 px-1 md:px-2 ">
+            <form className='m-auto lg:w-1/2 bg-zinc-100 flex flex-col gap-3 rounded-lg border p-4'>
                 <div className='flex justify-between items-center'>
                     <h2 className="text-xl py-2 font-semibold">EDITAR VAGA</h2>
                     <ModalCloseJob/>
                 </div>
 
                 <hr className='border-2 my-2'/>
-                <div className='grid grid-cols-2 gap-3'>
+                <div className='grid grid-cols-2 gap-4'>
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend mb-2">Vaga</legend>
                         <select defaultValue="motoboy" className="select w-full">

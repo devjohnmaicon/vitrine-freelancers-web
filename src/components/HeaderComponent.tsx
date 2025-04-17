@@ -16,7 +16,7 @@ import {useRouter} from "next/navigation";
 export default function HeaderComponent() {
     const router = useRouter();
     return (
-        <header className="py-4 border-b">
+        <header className="border-b py-4 px-2">
             <div className="container m-auto">
                 <nav className="flex items-center justify-between">
                     <a
@@ -98,19 +98,22 @@ export default function HeaderComponent() {
                             </SheetHeader>
                             <div className="flex flex-col p-4">
                                 <div className="flex flex-col gap-6">
-                                    <a href="#" className="font-medium">
-                                        Templates
+                                    <a href="/" className="font-medium">
+                                        Inicio
                                     </a>
-                                    <a href="#" className="font-medium">
-                                        Blog
+                                    <a href="/vagas" className="font-medium">
+                                        Vagas
                                     </a>
-                                    <a href="#" className="font-medium">
-                                        Pricing
+                                    <a href="/minhas-vagas" className="font-medium">
+                                        Minhas Vagas
+                                    </a>
+                                    <a href="/sobre" className="font-medium">
+                                        Sobre
                                     </a>
                                 </div>
                                 <div className="mt-6 flex flex-col gap-4">
-                                    <Button variant="outline">Sign in</Button>
-                                    <Button>Start for free</Button>
+                                    <Button variant="outline">Login</Button>
+                                    <Button>Registrar-se</Button>
                                 </div>
                             </div>
                         </SheetContent>

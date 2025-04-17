@@ -38,12 +38,12 @@ export default async function AboutPage() {
                     <div className="mx-auto flex max-w-screen-md flex-col gap-6 rounded-lg border p-10">
                         <div className="flex gap-4">
                             <div className="grid w-full items-center gap-1.5">
-                                <Label htmlFor="firstname">First Name</Label>
-                                <Input type="text" id="firstname" placeholder="First Name" />
+                                <Label htmlFor="firstname">Nome</Label>
+                                <Input type="text" id="firstname" />
                             </div>
                             <div className="grid w-full items-center gap-1.5">
-                                <Label htmlFor="lastname">Last Name</Label>
-                                <Input type="text" id="lastname" placeholder="Last Name" />
+                                <Label htmlFor="lastname">Sobrenome/Empresa</Label>
+                                <Input type="text" id="lastname" placeholder="Ex: Vitrine Freelas" />
                             </div>
                         </div>
                         <div className="grid w-full items-center gap-1.5">
@@ -51,14 +51,14 @@ export default async function AboutPage() {
                             <Input type="email" id="email" placeholder="Email" />
                         </div>
                         <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="subject">Subject</Label>
+                            <Label htmlFor="subject">Assunto</Label>
                             <Input type="text" id="subject" placeholder="Subject" />
                         </div>
                         <div className="grid w-full gap-1.5">
-                            <Label htmlFor="message">Message</Label>
-                            <Textarea placeholder="Type your message here." id="message" />
+                            <Label htmlFor="message">Mensagem</Label>
+                            <Textarea placeholder="Escreva sua mensagem ou feedback aqui." id="message" />
                         </div>
-                        <Button className="w-full">Send Message</Button>
+                        <Button className="w-full">Enviar Mensagem</Button>
                     </div>
                 </div>
             </div>
