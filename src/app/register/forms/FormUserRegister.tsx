@@ -1,50 +1,22 @@
 import {useForm} from "react-hook-form";
 import {z} from "zod";
-import {zodResolver} from "@hookform/resolvers/zod";
 
 import {Input} from "@/components/ui/input";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form";
 import {Button} from "@/components/ui/button";
-import {Card, CardHeader, CardTitle, CardDescription, CardContent} from "@/components/ui/card";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {userRegisterSchema} from "@/types/schemas/z";
 
-const userRegisterSchema = z
-    .object({
-        username: z.string().min(1, "Username is required"),
-        email: z.string().email("Invalid email address"),
-        password: z.string().min(6, "Password must be at least 6 characters"),
-        confirmPassword: z
-            .string()
-            .min(6, "Confirm Password must be at least 6 characters"),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-        message: "Passwords do not match",
-        path: ["confirmPassword"],
-    });
 
-export default function FormUserRegister() {
-    const form = useForm<z.infer<typeof userRegisterSchema>>({
-        resolver: zodResolver(userRegisterSchema),
-        defaultValues: {
-            username: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-        },
-    });
+interface FormUserRegisterProps {
+    formUser: ReturnType<typeof useForm<z.infer<typeof userRegisterSchema>>>;
+    onSubmit: () => void;
+}
 
-    const onSubmit = (values: z.infer<typeof userRegisterSchema>) => {
-        console.log(values);
-    };
+export default function FormUserRegister({formUser, onSubmit}: FormUserRegisterProps) {
 
     return (
-        <Form {...form}>
+        <Form {...formUser}>
             <Card className="mx-auto max-w-2xl">
                 <CardHeader>
                     <CardTitle className="text-2xl">
@@ -56,35 +28,35 @@ export default function FormUserRegister() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 ">
+                    <form onSubmit={formUser.handleSubmit(onSubmit)} className="space-y-4 ">
                         <FormField
-                            control={form.control}
+                            control={formUser.control}
                             name="username"
                             render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Nome</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Enter your username" {...field} />
+                                        <Input placeholder="Digite o nome" {...field} />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
                             )}
                         />
                         <FormField
-                            control={form.control}
+                            control={formUser.control}
                             name="email"
                             render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Enter your email" {...field} />
+                                        <Input placeholder="Digite seu e-mail" {...field} />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
                             )}
                         />
                         <FormField
-                            control={form.control}
+                            control={formUser.control}
                             name="password"
                             render={({field}) => (
                                 <FormItem>
@@ -101,7 +73,7 @@ export default function FormUserRegister() {
                             )}
                         />
                         <FormField
-                            control={form.control}
+                            control={formUser.control}
                             name="confirmPassword"
                             render={({field}) => (
                                 <FormItem>
@@ -117,7 +89,7 @@ export default function FormUserRegister() {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" className="w-full py-5">
+                        <Button type="submit" className="w-full py-5" disabled={!formUser.formState.isValid}>
                             Finalizar Cadastro
                         </Button>
                     </form>

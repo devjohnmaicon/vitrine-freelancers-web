@@ -1,42 +1,26 @@
 import {useForm} from "react-hook-form";
 import {z} from "zod";
-import {zodResolver} from "@hookform/resolvers/zod";
 
 import {Input} from "@/components/ui/input";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form";
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {ChevronsRight} from "lucide-react";
+import {companyRegisterSchema} from "@/types/schemas/z";
 
-const companyRegisterSchema = z.object({
-    nome: z.string().min(1, "Nome é obrigatório"),
-    tel: z.string().min(10, "Telefone inválido"),
-    cnpj: z.string().min(14, "CNPJ inválido"),
-    state: z.string().min(1, "Estado é obrigatório"),
-    street: z.string().min(1, "Rua é obrigatória"),
-    number: z.string().min(1, "Número é obrigatório"),
-    city: z.string().min(1, "Cidade é obrigatória"),
-});
 
-export default function FormCompanyRegister() {
-    const form = useForm<z.infer<typeof companyRegisterSchema>>({
-        resolver: zodResolver(companyRegisterSchema),
-        defaultValues: {
-            nome: "",
-            tel: "",
-            cnpj: "",
-            state: "",
-            street: "",
-            number: "",
-            city: "",
-        },
-    });
+interface FormCompanyRegisterProps {
+    formCompany: ReturnType<typeof useForm<z.infer<typeof companyRegisterSchema>>>;
+    changeTab: () => void;
+}
 
-    const onSubmit = (values: z.infer<typeof companyRegisterSchema>) => {
-        console.log(values);
+export default function FormCompanyRegister({formCompany, changeTab}: FormCompanyRegisterProps) {
+    const nextTab = () => {
+        changeTab()
     };
 
     return (
-        <Form {...form}>
+        <Form {...formCompany}>
             <Card className="mx-auto max-w-2xl">
                 <CardHeader>
                     <CardTitle className="text-2xl">
@@ -49,9 +33,9 @@ export default function FormCompanyRegister() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <form onSubmit={formCompany.handleSubmit(nextTab)} className="space-y-4">
                         <FormField
-                            control={form.control}
+                            control={formCompany.control}
                             name="nome"
                             render={({field}) => (
                                 <FormItem>
@@ -64,7 +48,7 @@ export default function FormCompanyRegister() {
                             )}
                         />
                         <FormField
-                            control={form.control}
+                            control={formCompany.control}
                             name="tel"
                             render={({field}) => (
                                 <FormItem>
@@ -77,7 +61,7 @@ export default function FormCompanyRegister() {
                             )}
                         />
                         <FormField
-                            control={form.control}
+                            control={formCompany.control}
                             name="cnpj"
                             render={({field}) => (
                                 <FormItem>
@@ -90,7 +74,7 @@ export default function FormCompanyRegister() {
                             )}
                         />
                         <FormField
-                            control={form.control}
+                            control={formCompany.control}
                             name="state"
                             render={({field}) => (
                                 <FormItem>
@@ -104,7 +88,7 @@ export default function FormCompanyRegister() {
                         />
                         <div className='grid grid-cols-2 gap-2'>
                             <FormField
-                                control={form.control}
+                                control={formCompany.control}
                                 name="city"
                                 render={({field}) => (
                                     <FormItem>
@@ -117,7 +101,7 @@ export default function FormCompanyRegister() {
                                 )}
                             />
                             <FormField
-                                control={form.control}
+                                control={formCompany.control}
                                 name="state"
                                 render={({field}) => (
                                     <FormItem>
@@ -132,7 +116,7 @@ export default function FormCompanyRegister() {
                         </div>
                         <div className='grid grid-cols-2 gap-2'>
                             <FormField
-                                control={form.control}
+                                control={formCompany.control}
                                 name="street"
                                 render={({field}) => (
                                     <FormItem>
@@ -145,7 +129,7 @@ export default function FormCompanyRegister() {
                                 )}
                             />
                             <FormField
-                                control={form.control}
+                                control={formCompany.control}
                                 name="number"
                                 render={({field}) => (
                                     <FormItem>
@@ -158,9 +142,8 @@ export default function FormCompanyRegister() {
                                 )}
                             />
                         </div>
-
-                        <Button type="submit" className="w-full mt-2">
-                            Cadastrar
+                        <Button type="submit" className="w-full mt-2" disabled={!formCompany.formState.isValid}>
+                            Continuar <ChevronsRight/>
                         </Button>
                     </form>
                 </CardContent>
