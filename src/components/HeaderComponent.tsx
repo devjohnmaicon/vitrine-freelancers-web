@@ -28,9 +28,7 @@ export default function HeaderComponent() {
                             className="max-h-8"
                             alt="Shadcn UI Navbar"
                         />
-                        <span className="text-lg font-semibold tracking-tighter">
-              Shadcnblocks.com
-            </span>
+                        <span className="text-lg font-semibold tracking-tighter">Vitrine Freelancers</span>
                     </a>
                     <NavigationMenu className="hidden lg:block">
                         <NavigationMenuList>
@@ -72,13 +70,14 @@ export default function HeaderComponent() {
                         <Button variant="outline" onClick={() => router.push("/login")}>Login</Button>
                         <Button onClick={() => router.push("/register")}>Registre-se</Button>
                     </div>
+
                     <Sheet>
                         <SheetTrigger asChild className="lg:hidden">
                             <Button variant="outline" size="icon">
                                 <MenuIcon className="h-4 w-4"/>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="top" className="max-h-screen overflow-auto">
+                        <SheetContent className="max-h-screen overflow-auto">
                             <SheetHeader>
                                 <SheetTitle>
                                     <a
@@ -90,9 +89,7 @@ export default function HeaderComponent() {
                                             className="max-h-8"
                                             alt="Shadcn UI Navbar"
                                         />
-                                        <span className="text-lg font-semibold tracking-tighter">
-                      Shadcnblocks.com
-                    </span>
+                                        <span className="text-lg font-semibold tracking-tighter">Vitrine Freelancers</span>
                                     </a>
                                 </SheetTitle>
                             </SheetHeader>
@@ -112,8 +109,14 @@ export default function HeaderComponent() {
                                     </a>
                                 </div>
                                 <div className="mt-6 flex flex-col gap-4">
-                                    <Button variant="outline">Login</Button>
-                                    <Button>Registrar-se</Button>
+                                    <a href="/login"
+                                       className="text-sm font-medium transition-colors text-center rounded-md py-2 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground">
+                                        Login
+                                    </a>
+                                    <a href="/register"
+                                       className="text-sm font-medium transition-colors text-center rounded-md py-2 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground bg-primary text-primary-foreground shadow hover:bg-primary/90">
+                                        Registrar-se
+                                    </a>
                                 </div>
                             </div>
                         </SheetContent>

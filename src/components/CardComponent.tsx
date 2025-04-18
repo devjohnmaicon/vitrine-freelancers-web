@@ -31,14 +31,14 @@ export default function CardComponent({data, showEditButtons}: CardComponentProp
             <div className="card-body px-1 md:p-4 flex-1">
                 <div className="flex justify-between items-center">
                     <div>
-                        <h2 className="card-title font-bold text-md md:text-3xl">{data.companyName}</h2>
-                        <p className='text-xs'>Publicado: 14, Setembro. 16:40</p>
+                        <h2 className="card-title font-bold text-pretty md:text-3xl">{data.companyName}</h2>
+                        <p className='text-xs text-muted-foreground'>Publicado: 14, Setembro. 16:40</p>
                     </div>
 
                     <Badge className='md:text-md px-1 md:px-3'>{data.type}</Badge>
                 </div>
                 <div className="grid grid-cols-2 gap-1 p-0.5">
-                    <div className="col-span-2 font-bold col-span-2 font-semibold truncate text-sm">{data.description}</div>
+                    <div className="col-span-2 font-bold col-span-2 text-muted-foreground truncate text-sm">{data.description}</div>
                     <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><UserRound size={18}/>{data.position}</div>
                     <div className="flex items-center gap-0.5 md:gap-1 text-xs md:text-base">
                         <CalendarDays/> Hoje, {data.startTime} às {data.endTime}
