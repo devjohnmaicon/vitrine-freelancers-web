@@ -16,29 +16,29 @@ export default function CardComponent({data, showEditButtons}: CardComponentProp
 
     return (
         <div
-            // className="card max-h-56 bg-zinc-50 w-full card-side bg-base-100 shadow-xl pl-3 py-5 flex justify-center items-center gap-4 cursor-pointer border-1 rounded-xl"
-            className='bg-zinc-50  flex rounded-md p-1'
+            // className="card max-h-56 bg-zinc-50 w-full card-side pl-3 py-5 flex justify-center items-center gap-4 cursor-pointer border-1 rounded-xl"
+            className='w-full h-full bg-zinc-50 bg-base-100 shadow-xl space-y-1 cursor-pointer border-1 rounded-md p-2 md:px-4'
         >
-
-            <figure className="overflow-hidden flex-shrink-0 flex items-center">
-                <img
-                    src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-                    alt="img"
-                    className="object-cover rounded w-10 h-12 md:w-36 md:h-40"
-                />
-            </figure>
-
-            <div className="card-body px-1 md:p-4 flex-1">
-                <div className="flex justify-between items-center">
-                    <div>
-                        <h2 className="card-title font-bold text-pretty md:text-3xl">{data.companyName}</h2>
-                        <p className='text-xs text-muted-foreground'>Publicado: 14, Setembro. 16:40</p>
-                    </div>
-
-                    <Badge className='md:text-md px-1 md:px-3'>{data.type}</Badge>
+            <div className='relative flex gap-2 md:gap-4'>
+                <div className='h-14 md:h-20 w-14 md:w-20 '>
+                    <img
+                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                        alt="img"
+                        className="object-cover rounded w-full h-full max-w-full max-h-full"
+                    />
                 </div>
-                <div className="grid grid-cols-2 gap-1 p-0.5">
-                    <div className="col-span-2 font-bold col-span-2 text-muted-foreground truncate text-sm">{data.description}</div>
+
+                <div className='py-1 md:py-0'>
+                    <h2 className="card-title font-bold text-pretty md:text-4xl">{data.companyName}</h2>
+                    <p className='text-xs md:text-base text-muted-foreground mt-1'>Publicado: 14, Setembro. 16:40</p>
+                </div>
+
+                <Badge className='absolute top-1 right-1 text-xs md:text-lg px-1 md:px-3 '>{data.type}</Badge>
+            </div>
+
+            <div className=''>
+                <div className="grid grid-cols-2 gap-1 md:gap-2">
+                    <div className="col-span-2 font-bold text-muted-foreground truncate ">{data.description}</div>
                     <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><UserRound size={18}/>{data.position}</div>
                     <div className="flex items-center gap-0.5 md:gap-1 text-xs md:text-base">
                         <CalendarDays/> Hoje, {data.startTime} às {data.endTime}
@@ -50,11 +50,12 @@ export default function CardComponent({data, showEditButtons}: CardComponentProp
                         {taxas && taxas.map((tax, index) => (
                             <Badge key={index} variant='secundary' className='text-xs px-1'>{tax}</Badge>))}
                     </div>
-                    <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><Phone size={18}/>61 99999-9999</div>
+                    <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><Phone size={18}/>(61) 99999-9999</div>
                     <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><MapPin size={18}/> Valparaíso, Goiás</div>
                 </div>
-                <div className='flex justify-end items-center gap-3  pb-2'>
-                    <Link  className='cursor-pointer flex bg-zinc-200 rounded-md py-1 px-2 text-sm' href={`${pathUrlJob}/${data.id}`}><Plus size={20}/> Detalhes</Link>
+
+                <div className='flex justify-end items-center gap-3 mt-2 pb-2'>
+                    <Link  className='cursor-pointer flex bg-zinc-200 rounded-md py-1.5 px-2 text-sm' href={`${pathUrlJob}/${data.id}`}><Plus size={18}/> Detalhes</Link>
                     {showEditButtons &&
                         <>
                             <Link href={` ${pathUrlJob}/edit/${data.id}`} className=''><Edit size={18}/></Link>
