@@ -47,8 +47,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-md">
+    <div className="w-full min-h-screen">
+      <Card className="w-full max-w-md m-auto mt-16 md:mt-24">
         <CardHeader>
           <img
               src="https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"

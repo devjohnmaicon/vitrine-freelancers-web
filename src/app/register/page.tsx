@@ -46,7 +46,7 @@ export default function RegisterComponent() {
     };
 
     return (
-        <div className='w-full  min-h-screen'>
+        <div className='w-full min-h-screen'>
             <Tabs value={selectedTable} onValueChange={setSelectedTable} className="max-w-2xl m-auto mt-16">
                 <TabsList >
                     <TabsTrigger value="company">Dados da Empresa</TabsTrigger>
