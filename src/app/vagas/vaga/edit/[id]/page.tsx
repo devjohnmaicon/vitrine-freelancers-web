@@ -16,8 +16,7 @@ export default function EditJobPage() {
     }
 
     return (
-        <div className="min-h-screen pt-10 px-1 md:px-2 ">
-            <form className='m-auto lg:w-1/2 bg-zinc-100 flex flex-col gap-3 rounded-lg border p-4'>
+            <form className='m-auto lg:w-1/2 bg-zinc-100 flex flex-col gap-3 rounded-md shadow shadow-2xl p-4'>
                 <div className='flex justify-between items-center'>
                     <h2 className="text-xl py-2 font-semibold">EDITAR VAGA</h2>
                     <ModalCloseJob/>
@@ -81,6 +80,5 @@ export default function EditJobPage() {
                     <Button className="">Salvar</Button>
                 </div>
             </form>
-        </div>
     );
 }
