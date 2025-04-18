@@ -21,7 +21,7 @@ export default async function Home() {
                     </p>
                     <div className='flex justify-start gap-2 md:gap-4 mt-5'>
                         <a href="/vagas" className="text-xl py-2 sm:py-4 px-4 sm:px-6 bg-zinc-900 rounded-lg">Ver vagas</a>
-                        <a href="/vagas" className="text-xl text-zinc-900 py-2 sm:py-4 px-4 sm:px-6 bg-zinc-200 rounded-lg">Registrar-se</a>
+                        <a href="/register" className="text-xl text-zinc-900 py-2 sm:py-4 px-4 sm:px-6 bg-zinc-200 rounded-lg">Registrar-se</a>
                     </div>
                 </div>
             </section>
