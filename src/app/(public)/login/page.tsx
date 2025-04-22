@@ -5,7 +5,7 @@ import {
     handleCredentialsSignin,
     handleGithubSignin,
 } from "../actions/authActions";
-import {signInSchema} from "../lib/zod";
+import {signInSchema} from "../../lib/zod";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 

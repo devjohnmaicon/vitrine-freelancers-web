@@ -1,8 +1,8 @@
 'use client';
 
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
-import FormCompanyRegister from "@/app/register/forms/FormCompanyRegister";
-import FormUserRegister from "@/app/register/forms/FormUserRegister";
+import FormCompanyRegister from "@/app/(public)/register/forms/FormCompanyRegister";
+import FormUserRegister from "@/app/(public)/register/forms/FormUserRegister";
 import React from "react";
 import {z} from "zod";
 import {useForm} from "react-hook-form";
