@@ -11,13 +11,13 @@ export function FooterComponent() {
                         <a href="/" className="hover:underline me-4 md:me-6">Início</a>
                     </li>
                     <li>
+                        <a href="/vagas" className="hover:underline me-4 md:me-6">Vagas</a>
+                    </li>
+                    <li>
                         <a href="/sobre" className="hover:underline me-4 md:me-6">Sobre</a>
                     </li>
                     <li>
-                        <a href="#" className="hover:underline me-4 md:me-6">Licensing</a>
-                    </li>
-                    <li>
-                        <a href="#" className="hover:underline">Contato</a>
+                        <a href="/contato" className="hover:underline">Contato</a>
                     </li>
                 </ul>
             </div>

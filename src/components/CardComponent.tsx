@@ -48,14 +48,15 @@ export default function CardComponent({data, showEditButtons}: CardComponentProp
                     </div>
                     <div className="flex items-center gap-0.5 md:gap-1 flex-wrap"><HandCoins size={18}/>Taxas:
                         {taxas && taxas.map((tax, index) => (
-                            <Badge key={index} variant='secundary' className='text-xs px-1'>{tax}</Badge>))}
+                            <Badge key={index} variant={'secondary'} className='text-xs px-1'>{tax}</Badge>))}
                     </div>
                     <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><Phone size={18}/>(61) 99999-9999</div>
                     <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><MapPin size={18}/> Valparaíso, Goiás</div>
                 </div>
 
                 <div className='flex justify-end items-center gap-3 mt-2 pb-2'>
-                    <Link  className='cursor-pointer flex bg-zinc-200 rounded-md py-1.5 px-2 text-sm' href={`${pathUrlJob}/${data.id}`}><Plus size={18}/> Detalhes</Link>
+                    <Link className='cursor-pointer flex bg-zinc-200 rounded-md py-1.5 px-2 text-sm' href={`${pathUrlJob}/${data.id}`}><Plus
+                        size={18}/> Detalhes</Link>
                     {showEditButtons &&
                         <>
                             <Link href={` ${pathUrlJob}/edit/${data.id}`} className=''><Edit size={18}/></Link>

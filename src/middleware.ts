@@ -6,7 +6,7 @@ import {getToken} from "@auth/core/jwt";
 export async function middleware(request: NextRequest) {
     const session = await auth();
     const token = await hasToken(request)
-    console.log(session)
+    const headers = new Headers(request.headers);
     // const isAdminUser = request.nextauth.token?.role === 'admin'
     const path = request.nextUrl.pathname
     const isPublic = path === '/' || path === '/login' || path === '/register' || path === '/vagas' || path === '/vagas/[id]'
@@ -20,7 +20,10 @@ export async function middleware(request: NextRequest) {
         request.headers.set('authorization', `Bearer ${token}`)
     }
 
-    return NextResponse.next()
+    // console.log('middleware -> ', request.nextUrl.pathname)
+    headers.set("x-current-path", request.nextUrl.pathname)
+
+    return NextResponse.next({headers})
 }
 
 export const config = {
