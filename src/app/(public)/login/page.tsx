@@ -41,6 +41,7 @@ export default function LoginPage() {
 
             if (result?.ok && result?.error == undefined || result?.error == undefined) {
                 router.push("/minhas-vagas");
+                router.refresh()
             }
 
 

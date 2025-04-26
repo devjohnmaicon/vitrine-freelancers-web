@@ -1,57 +1,23 @@
-import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    navigationMenuTriggerStyle
-} from "@/components/ui/navigation-menu";
-import React from "react";
+import {navigationMenuTriggerStyle} from "@/components/ui/navigation-menu";
+import Link from "next/link";
+import {auth} from "../../../auth";
+import {headers} from "next/headers";
 
-export default function HeaderNav() {
+export default async function HeaderNav() {
+    const session = await auth()
+    // const headerList = headers();
+    // const pathname = headerList.get("x-current-path");
+    // console.log('pathname', pathname)
+    // const isActive = (path: string) => pathname === path;
+
     return (
-        <NavigationMenu className="hidden lg:block">
-            <NavigationMenuList>
-                <NavigationMenuItem>
-                    <NavigationMenuLink
-                        href="/"
-                        className={`${navigationMenuTriggerStyle()}  rounded-none border-b-4 border-zinc-700`}
-                    >
-                        Início
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink
-                        href="/vagas"
-                        className={navigationMenuTriggerStyle()}
-                    >
-                        Vagas
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink
-                        href="/minhas-vagas"
-                        className={navigationMenuTriggerStyle()}
-                    >
-                        Minhas vagas
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink
-                        href="/sobre"
-                        className={navigationMenuTriggerStyle()}
-                    >
-                        Sobre
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink
-                        href="/contato"
-                        className={navigationMenuTriggerStyle()}
-                    >
-                        Contato
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-            </NavigationMenuList>
-        </NavigationMenu>
+        <nav className="hidden lg:block">
+            <Link href="/" className={`${navigationMenuTriggerStyle()}`}> Início </Link>
+            <Link href="/vagas"
+                  className={`${navigationMenuTriggerStyle()}`}> Vagas </Link>
+            {session && <Link href="/minhas-vagas" className={navigationMenuTriggerStyle()}> Minhas vagas </Link>}
+            <Link href="/sobre" className={navigationMenuTriggerStyle()}> Sobre </Link>
+            <Link href="/contato" className={navigationMenuTriggerStyle()}> Contato </Link>
+        </nav>
     )
 }
