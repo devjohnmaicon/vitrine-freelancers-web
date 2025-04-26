@@ -85,13 +85,20 @@ export default function HeaderComponent() {
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
                             }
-
                             <NavigationMenuItem>
                                 <NavigationMenuLink
                                     href="/sobre"
                                     className={navigationMenuTriggerStyle()}
                                 >
                                     Sobre
+                                </NavigationMenuLink>
+                            </NavigationMenuItem>
+                            <NavigationMenuItem>
+                                <NavigationMenuLink
+                                    href="/contato"
+                                    className={navigationMenuTriggerStyle()}
+                                >
+                                    Contato
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
                         </NavigationMenuList>
@@ -137,6 +144,9 @@ export default function HeaderComponent() {
                                     }
                                     <a href="/sobre" className="font-medium">
                                         Sobre
+                                    </a>
+                                    <a href="/contato" className="font-medium">
+                                        contato
                                     </a>
                                 </div>
 
