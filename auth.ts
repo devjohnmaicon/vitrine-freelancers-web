@@ -14,43 +14,31 @@ const nextAuthOptions = {
                 email: {label: "Email", type: "text", placeholder: "Digite o seu e-mail"},
                 password: {label: "Password", type: "password", placeholder: "Digite a sua senha"},
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 let user: UserAuth | null = null;
-
-                // const parsedCredentials = signInSchema.safeParse(credentials);
-                // if (!parsedCredentials) {
-                //   console.error(
-                //     "Invalid credentials:",
-                //     "parsedCredentials.error.errors"
-                //   );
-                //   return null;
-                // }
-
-                let auth_url = "https://reqres.in/api/login";
+                const auth_url = "https://reqres.in/api/login";
 
                 const validate_credentials = await fetch(auth_url, {
-                    method: "post",
+                    method: "POST",
                     body: JSON.stringify({
                         email: credentials.email,
                         password: credentials.password,
                     }),
-                    headers: {"Content-Type": "application/json"},
+                    headers: {"Content-Type": "application/json", "x-api-key": "reqres-free-v1"},
                 });
 
-                let response_api = await validate_credentials.json();
+                const response_api = await validate_credentials.json();
 
-                if (validate_credentials.status !== 200) {
-                    console.error("Invalid credentials:", response_api);
+                if (response_api.error) {
+                    console.error("authorize - Error:", response_api);
                     return null;
                 }
 
                 user = {
                     id: 1,
-                    name: "User",
+                    name: "User config",
                     email: credentials.email,
-                    image: "https://reqres.in/img/faces/7-image.jpg",
-                    token: response_api.token,
-
+                    image: "https://reqres.in/img/faces/7-image.jpg"
                 };
 
                 return user;
@@ -63,25 +51,19 @@ const nextAuthOptions = {
     },
     callbacks: {
         async jwt({token, user}) {
-            if (user) {
-                token.id = user.id;
-                token.user = user;
-                token.accessToken = user.token;
-            }
             return token;
         },
-        async session({session, token}) {
-            session.user = {
-                id: 777,
-                email: token.user.email,
-                image: token.user.image,
+        async session({session}) {
+            return {
+                user: {
+                    ...session.user,
+                    role: 'COMPANY'
+                },
             }
-            session.accessToken = token.accessToken;
-            return session;
         },
 
     }
 };
 
 
-export const {handlers, signIn, signOut, auth} = NextAuth(nextAuthOptions);
+export const {handlers, auth} = NextAuth(nextAuthOptions);

@@ -2,16 +2,8 @@ import CardComponent from "@/components/CardComponent";
 import {JobType} from "@/types/JobType";
 import {UserPlus} from "lucide-react";
 import Link from "next/link";
-import {redirect} from "next/navigation";
-import {auth} from "../../../../auth";
-
 
 export default async function MyJobsPage() {
-    const session = await auth();
-    if (!session) {
-        redirect("/login");
-    }
-
     const myJobs: JobType[] = await fetch('http://localhost:3333/my-jobs', {
         method: 'GET',
         cache: 'no-store'
