@@ -1,4 +1,4 @@
-import CardComponent from "@/components/CardComponent";
+import CardComponent from "@/components/card/CardComponent";
 import {JobType} from "@/types/JobType";
 import {Ellipsis} from "lucide-react";
 
