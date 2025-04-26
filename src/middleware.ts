@@ -9,7 +9,8 @@ export async function middleware(request: NextRequest) {
     const headers = new Headers(request.headers);
     // const isAdminUser = request.nextauth.token?.role === 'admin'
     const path = request.nextUrl.pathname
-    const isPublic = path === '/' || path === '/login' || path === '/register' || path === '/vagas' || path === '/vagas/[id]'
+    console.log(path)
+    const isPublic = path === '/' || path === '/login' || path === '/register' || path === '/vagas' || path === '/vagas/vaga/[id]' || path === '/vagas/vaga/[slug]'
         || path === '/sobre' || path === '/contato' || path == '/denied'
 
     if (!isPublic && !session && !token) {

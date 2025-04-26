@@ -1,7 +1,8 @@
-import CardComponent from "@/components/card/CardComponent";
 import {JobType} from "@/types/JobType";
-import {UserPlus} from "lucide-react";
+import {Edit, UserPlus} from "lucide-react";
 import Link from "next/link";
+import {Card} from "@/components/card";
+import ModalCloseJob from "@/components/ModalCloseJob";
 
 export default async function MyJobsPage() {
     const myJobs: JobType[] = await fetch('http://localhost:3333/my-jobs', {
@@ -9,17 +10,28 @@ export default async function MyJobsPage() {
         cache: 'no-store'
     }).then((res) => res.json());
 
+    const pathUrlJob = 'http://localhost:3000/vagas/vaga/'
+
+    const urlNewJob = `${pathUrlJob}/new`
     return (
-        <div className="lg:w-1/2 min-h-screen max-w-screen-lg flex flex-col m-auto lg:p-2  my-2">
-            <div>
-                <Link href='/src/app/(public)/vagas/vaga/new'
-                      className='flex items-center gap-2 lg:text-xl ml-2 underline underline-offset-4 pl-1'><UserPlus/>Cadastrar vaga</Link>
-            </div>
+        <div className="max-w-4xl min-h-screen flex flex-col m-auto my-2">
+
+            <Link href={urlNewJob} className='flex items-center gap-2 underline underline-offset-4 lg:text-xl pl-1 my-2'>
+                <UserPlus size={20}/>NOVA VAGA
+            </Link>
             <div className='bg-slate-100 flex flex-col gap-3 mt-4 p-2 lg:p-3 rounded-lg'>
                 {
-                    myJobs.map((job) => {
+                    myJobs.map((job: JobType, index: number) => {
                         return (
-                            <CardComponent key={job.id} data={job} showEditButtons={true}/>
+                            <Card.Root key={index}>
+                                <Card.Header image="https://github.com/shadcn.png" jobData={job}/>
+                                <Card.Content jobData={job}>
+                                    <Card.Actions>
+                                        <Link href={`${pathUrlJob}/edit/${job.id}`}><Edit size={18}/></Link>
+                                        <ModalCloseJob/>
+                                    </Card.Actions>
+                                </Card.Content>
+                            </Card.Root>
                         )
                     })
                 }

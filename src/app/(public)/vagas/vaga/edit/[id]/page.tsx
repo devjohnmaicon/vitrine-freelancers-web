@@ -33,11 +33,25 @@ export default function EditJobPage() {
     }, [id]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className='h-screen w-full flex flex-col justify-center items-center'>
+            <h2 className="text-xl py-2 font-semibold">Carregando...</h2>
+            <p className="text-sm">Aguarde enquanto carregamos os dados da vaga.</p>
+            <div className="flex justify-center items-center">
+                <svg className="animate-spin h-5 w-5 text-gray-500" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" strokeWidth="4"/>
+                    <path className="opacity-75" fill="none" d="M4 12a8 8 0 1 1 16 0A8 8 0 0 1 4 12z"/>
+                </svg>
+            </div>
+        </div>;
     }
 
     if (!job) {
-        return <div>Job not found</div>;
+        return <div>
+            <h2 className="text-xl py-2 font-semibold">Vaga não encontrada</h2>
+            <p className="text-sm">A vaga que você está tentando editar não existe ou foi removida.</p>
+            <a href='/minhas-vagas'
+               className='border-2 flex justify-center items-center py-1 px-2 rounded-md bg-zinc-200 hover:bg-zinc-300/90'>Voltar</a>
+        </div>;
     }
 
     return (
