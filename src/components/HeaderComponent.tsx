@@ -52,7 +52,7 @@ const HeaderNavigation = async () => {
             <Link href="/" className={`${navigationMenuTriggerStyle()}`}> Início </Link>
             <Link href="/vagas"
                   className={`${navigationMenuTriggerStyle()}`}> Vagas </Link>
-            {session && <Link href="/minhas-vagas" className={navigationMenuTriggerStyle()}> Minhas vagas </Link>}
+            {session && <Link href="/vagas/minhas-vagas" className={navigationMenuTriggerStyle()}> Minhas vagas </Link>}
             <Link href="/sobre" className={navigationMenuTriggerStyle()}> Sobre </Link>
             <Link href="/contato" className={navigationMenuTriggerStyle()}> Contato </Link>
         </nav>
@@ -92,7 +92,7 @@ const HeaderMobile = () => {
                             Vagas
                         </a>
                         {/*{session?.user &&*/}
-                        <a href="/minhas-vagas" className="font-medium">
+                        <a href="/vagas/minhas-vagas" className="font-medium">
                             Minhas Vagas
                         </a>
                         {/*}*/}
