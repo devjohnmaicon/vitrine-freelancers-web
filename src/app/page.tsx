@@ -1,8 +1,9 @@
 import {JobType} from "@/types/JobType";
 import Link from "next/link";
 import {Card} from "@/components/card";
-import {Plus} from "lucide-react";
+import {ChevronRight, ChevronRightCircle, Plus} from "lucide-react";
 import React from "react";
+import {Button} from "@/components/ui/button";
 
 export default async function Home() {
     const listJobs: JobType[] = await fetch('http://localhost:3333/jobs/').then((res) => res.json());
@@ -23,15 +24,20 @@ export default async function Home() {
                         Aqui você encontra freelancers prontos para atender rápido, perto de você e com qualidade garantida.
                     </p>
                     <div className='flex justify-start gap-2 md:gap-4 mt-5'>
-                        <a href="/vagas" className="text-xl py-2 sm:py-4 px-4 sm:px-6 bg-zinc-900 rounded-lg">Ver vagas</a>
-                        <a href="/register"
-                           className="text-xl text-zinc-900 py-2 sm:py-4 px-4 sm:px-6 bg-zinc-200 rounded-lg">Registrar-se</a>
+                        {/*<a href="" className=" bg-zinc-900 rounded-lg">Ver vagas</a>*/}
+
+                        <Button asChild variant='outline' className='text-xl text-zinc-900 py-2 sm:py-6 px-4 sm:px-6'>
+                            <Link href="/vagas" className='underline underline-offset-2'>Ver Vagas <ChevronRightCircle /></Link>
+                        </Button>
+                        <Button asChild className='text-xl  py-2 sm:py-6 px-4 sm:px-6'>
+                            <Link href="/register">Registrar-se</Link>
+                        </Button>
                     </div>
                 </div>
             </section>
 
             <section className="w-full py-5">
-                <div className="max-w-4xl bg-zinc-100 m-auto rounded-md shadow-md shadow-zinc-400/50">
+                <div className="max-w-4xl m-auto rounded-md shadow-md shadow-zinc-400/50">
                     <h2 className="text-3xl font-semibold underline underline-offset-4 my-4 p-4">Últimas publicações</h2>
                     <div className='flex flex-col gap-4 p-4'>
                         {
@@ -41,7 +47,7 @@ export default async function Home() {
                                         <Card.Header image="https://github.com/shadcn.png" jobData={job}/>
                                         <Card.Content jobData={job}>
                                             <Card.Actions>
-                                                <Link className='cursor-pointer flex bg-zinc-200 rounded-md p-1.5 text-sm'
+                                                <Link className='cursor-pointer flex bg-blue-100 rounded-md p-1.5 text-sm'
                                                       href={`${pathUrlJob}/${job.id}`}><Plus size={18}/> Detalhes</Link>
                                             </Card.Actions>
                                         </Card.Content>
@@ -49,9 +55,10 @@ export default async function Home() {
                                 ))
                         }
                         <div className='h-2'/>
-                        <Link href="/vagas" className="w-1/2 m-auto bg-zinc-900 text-white text-center p-2 rounded-full">
-                            TODAS AS VAGAS
-                        </Link>
+                        <Button asChild className='w-1/2 m-auto rounded-full'>
+                            <Link href="/vagas">TODAS AS VAGAS</Link>
+                        </Button>
+
                     </div>
                 </div>
             </section>

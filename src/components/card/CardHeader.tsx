@@ -22,7 +22,7 @@ const CardHeader = ({image,jobData}: CardHeaderProps) => {
                 <p className='text-xs md:text-base text-muted-foreground mt-1'>Publicado: 14, Setembro. 16:40</p>
             </div>
 
-            <Badge className='absolute top-1 right-1 text-[12px] md:text-lg px-1 py-0 sm:py-1 md:px-3'>{jobData.type}</Badge>
+            <Badge  className='absolute top-1 right-1 text-[12px] md:text-lg px-1 md:px-3 py-0 sm:py-1  bg-blue-950 hover:bg-blue-900'>{jobData.type}</Badge>
         </div>
     );
 };

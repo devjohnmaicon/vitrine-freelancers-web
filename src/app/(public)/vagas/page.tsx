@@ -10,7 +10,7 @@ export default async function JobsPage() {
     const pathUrlJob = 'http://localhost:3000/vagas/vaga/'
     const jobs: JobType[] = await fetch('http://localhost:3333/jobs/').then((res) => res.json());
     return (
-        <div className="max-w-4xl bg-zinc-100 min-h-screen flex flex-col gap-3 m-auto p-2 rounded-md">
+        <div className="max-w-4xl min-h-screen flex flex-col gap-3 m-auto p-2 rounded-md shadow-md shadow-zinc-400/50">
             {
                 jobs.map((job: JobType, index: number) => (
                     <Card.Root key={index}>

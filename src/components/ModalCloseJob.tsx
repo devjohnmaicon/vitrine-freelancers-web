@@ -16,7 +16,7 @@ export default function ModalCloseJob() {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button variant="destructive" size='sm'><Trash2/></Button>
+                <Trash2 size={18} color='red'/>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
