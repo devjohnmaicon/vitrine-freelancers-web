@@ -3,7 +3,7 @@
 import {useParams, useRouter} from "next/navigation";
 import {JobType} from "@/types/JobType";
 import {Button} from "@/components/ui/button";
-import ModalCloseJob from "@/components/ModalCloseJob";
+import ModalCloseJob from "@/components/modal-close-job";
 import {useState, useEffect} from "react";
 
 

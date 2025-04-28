@@ -3,7 +3,7 @@ import {JobType} from "@/types/JobType";
 import {Edit, Ellipsis, Plus} from "lucide-react";
 import {Card} from "@/components/card";
 import Link from "next/link";
-import ModalCloseJob from "@/components/ModalCloseJob";
+import ModalCloseJob from "@/components/modal-close-job";
 import React from "react";
 
 export default async function JobsPage() {

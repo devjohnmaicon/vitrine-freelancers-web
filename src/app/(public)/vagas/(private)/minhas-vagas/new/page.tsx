@@ -13,7 +13,7 @@ import {useForm} from 'react-hook-form'
 import {toast} from 'sonner'
 
 import React from "react";
-import {DatePickerWithPresets} from "@/components/CalendarComponent";
+import {DatePickerWithPresets} from "@/components/calendar-component";
 
 // Schema for newsletter form validation
 const formSchema = z.object({

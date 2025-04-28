@@ -4,7 +4,7 @@ import {MenuIcon} from "lucide-react";
 import {auth} from "../../auth";
 import Link from "next/link";
 import {navigationMenuTriggerStyle} from "@/components/ui/navigation-menu";
-import LogoutButton from "@/components/LogoutButton";
+import LogoutButton from "@/components/logout-button";
 
 
 export default async function HeaderComponent() {

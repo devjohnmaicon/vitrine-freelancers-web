@@ -2,7 +2,7 @@ import {JobType} from "@/types/JobType";
 import {Edit, UserPlus} from "lucide-react";
 import Link from "next/link";
 import {Card} from "@/components/card";
-import ModalCloseJob from "@/components/ModalCloseJob";
+import ModalCloseJob from "@/components/modal-close-job";
 import {
     Tooltip,
     TooltipContent,
