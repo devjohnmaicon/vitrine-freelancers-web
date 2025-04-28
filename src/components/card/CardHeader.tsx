@@ -9,7 +9,6 @@ interface CardHeaderProps {
 }
 
 const CardHeader = ({image,jobData}: CardHeaderProps) => {
-    console.log(jobData)
 
     return (
         <div className='relative flex items-center gap-2 md:gap-4'>
