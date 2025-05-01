@@ -9,15 +9,17 @@ export async function middleware(request: NextRequest) {
     const headers = new Headers(request.headers);
     // const isAdminUser = request.nextauth.token?.role === 'admin'
     const path = request.nextUrl.pathname
-    console.log(path)
-    const isPublic = path === '/' || path === '/login' || path === '/register' || path === '/vagas' || path === '/vagas/vaga/[id]' || path === '/vagas/vaga/[slug]'
-        || path === '/sobre' || path === '/contato' || path == '/denied'
+    // console.log(path)
+    // const isPublic = path === '/' || path === '/login' || path === '/register' || path === '/vagas' || path === '/vagas/vaga/[id]' || path === '/vagas/vaga/[slug]'
+    //     || path === '/sobre' || path === '/contato' || path == '/denied'
+    const isPrivate = path.startsWith('/vagas/minhas-vagas')
 
-    if (!isPublic && !session && !token) {
+    if (isPrivate && !session && !token) {
+        console.log('middleware -> ', request.nextUrl.pathname)
         return NextResponse.redirect(new URL('/denied', request.url))
     }
 
-    if (!isPublic) {
+    if (isPrivate) {
         request.headers.set('authorization', `Bearer ${token}`)
     }
 
