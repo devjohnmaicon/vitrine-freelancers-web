@@ -1,26 +1,32 @@
-"use client";
-
-import {useParams, useRouter} from "next/navigation";
-import {JobType} from "@/types/JobType";
+import {Job} from "@/types/Job";
 import {CalendarDays, CircleArrowLeft, CircleDollarSign, HandCoins, Phone, UserRound} from "lucide-react";
-import {Button} from "@/components/ui/button";
 import {Badge} from "@/components/ui/badge";
+import {getJobById} from "@/app/actions/jobs-service";
+import React from "react";
+import {Label} from "@/components/ui/label";
+import {Textarea} from "@/components/ui/textarea";
+import { ptBR } from "date-fns/locale/pt-BR";
+import { formatDate } from "date-fns";
 
 
-export default function JobPage() {
-    const {id} = useParams()
-    const router = useRouter()
-    const job: JobType = fetch(`http://localhost:3333/jobs/${id}`).then((res) => res.json());
+export default async function JobPage({params}: { params: { id: string } }) {
+    const id = params.id
+
+    // const router = useRouter()
+    const job: Job = await getJobById(id)
 
     const taxas = [5, , 10, 15]
 
-    const redirectToJobs = () => {
-        router.push(`http://localhost:3000/vagas`);
+    // const redirectToJobs = () => {
+    //     router.push(`http://localhost:3000/vagas`);
+    // };
 
-    };
+    if (!job) {
+        return <div className="flex justify-center items-center h-screen">Carregando...</div>;
+    }
 
     return (
-        <div className='max-w-2xl bg-zinc-100 m-auto p-2 md:p-4 rounded-md shadow shadow-2xl'>
+        <div className='max-w-2xl bg-zinc-100 m-auto p-2 md:p-4 rounded-md shadow-2xl'>
             <div className='flex justify-between items-center'>
                 <h2 className="text-xl py-2 font-semibold">INFORMAÇÕES SOBRE A VAGA</h2>
             </div>
@@ -35,11 +41,13 @@ export default function JobPage() {
                 </div>
                 <div className="w-full flex flex-col justify-between items-center md:items-start gap-2">
                     <div className='w-full flex justify-between items-center '>
-                        <h2 className="text-xl md:text-4xl font-medium">Loja da maria</h2>
-                        <span className="bg-zinc-900 text-zinc-50 text-xs md:text-base font-bold p-1 md:p-2 rounded">FREELANCER</span>
+                        <h2 className="text-xl md:text-4xl font-medium">{job.companyName}</h2>
+                        <Badge
+                            className=" text-xs md:text-base font-bold p-1 md:p-2 rounded bg-blue-950 hover:bg-blue-900">{job?.type}</Badge>
+
                     </div>
                     <div>
-                        <p className='text-xm md:text-md text-muted-foreground'>Publicado: 14, Setembro. 16:40</p>
+                        <p className='text-xm md:text-md text-muted-foreground'>Publicado: {formatDate(job.createdAt, "dd, MMMM. HH:mm", { locale: ptBR })}</p>
                         <p className="text-sm md:text-lg font-semibold text-muted-foreground mt-1">Rua Tupinambá, Quadra 10, Condominio
                             - Antares, Valparaíso - GO </p>
                     </div>
@@ -53,27 +61,13 @@ export default function JobPage() {
                     <div className="flex gap-2 text-sm md:text-base"><CircleDollarSign size={18}/>Diária: R$ {job.dailyValue} </div>
                     <div className="flex items-center gap-0.5 md:gap-1 flex-wrap"><HandCoins size={18}/>Taxas:
                         {taxas && taxas.map((tax, index) => (
-                            <Badge key={index} variant='secundary' className='text-xs px-1'>{tax}</Badge>))}
+                            <Badge key={index} variant={'secondary'} className='text-xs px-1'>{tax}</Badge>))}
                     </div>
                     <div className="flex gap-2 text-sm md:text-base"><Phone size={18}/>(61) 99999-9999</div>
                     {/*<div className="flex gap-2 text-sm md:text-base"><MapPin/>Endereço: {job.district},{job.city}, {job.state}</div>*/}
                     <div className="col-span-2">
-                        <h2 className='text-lg font-medium '>Descrição:</h2>
-                        <p className='p-1 md:py-3.5 border-y-2'>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            has
-                            been the standard dummy text ever since the 1500s, when an unknown printer
-                            took a
-                            galley of type and scrambled it to make a type specimen book. It has survived not only
-                            five
-                            centuries, but also the leap into electronic typesetting, remaining essentially
-                            unchanged.
-                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-                            Ipsum
-                            passages, and more recently with desktop publishing software like Aldus PageMaker
-                            including
-                            versions of Lorem Ipsum.
-                        </p>
+                        <Label htmlFor="message">Descrição</Label>
+                        <p className='min-h-28'>{job.description}</p>
                     </div>
                 </div>
                 <div className='flex justify-between py-3 gap-3'>

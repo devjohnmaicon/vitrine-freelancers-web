@@ -1,19 +1,29 @@
 import CardComponent from "@/components/card/CardRoot";
-import {JobType} from "@/types/JobType";
+import {Job} from "@/types/Job";
 import {Edit, Ellipsis, Plus} from "lucide-react";
 import {Card} from "@/components/card";
 import Link from "next/link";
 import ModalCloseJob from "@/components/modal-close-job";
 import React from "react";
+import {getOpenJobs} from "@/app/actions/jobs-service";
 
 export default async function JobsPage() {
     const pathUrlJob = 'http://localhost:3000/vagas/vaga/'
-    const jobs: JobType[] = await fetch('http://localhost:3333/jobs/').then((res) => res.json());
+    const jobList: Job[] = await  getOpenJobs()
+
+    if (!jobList) {
+        return (
+            <div className="max-w-4xl min-h-screen flex flex-col gap-3 m-auto p-2 rounded-md shadow-md shadow-zinc-400/50">
+                <h1 className='text-center text-lg font-semibold'>Nenhuma vaga encontrada</h1>
+            </div>
+        )
+    }
+
     return (
         <div className="max-w-4xl min-h-screen flex flex-col gap-3 m-auto p-2 rounded-md shadow-md shadow-zinc-400/50">
             {
-                jobs.map((job: JobType, index: number) => (
-                    <Card.Root key={index}>
+                jobList.map((job: Job, index: number) => (
+                    <Card.Root key={index} open={true}>
                         <Card.Header image="https://github.com/shadcn.png" jobData={job}/>
                         <Card.Content jobData={job}>
                             <Card.Actions >

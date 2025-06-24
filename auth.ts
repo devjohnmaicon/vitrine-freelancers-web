@@ -1,69 +1,92 @@
-import NextAuth from "next-auth";
+import { ExtendedSession, ExtendedToken, ExtendedUser } from "@/types/session";
+import { max } from "date-fns";
+import NextAuth, { User } from "next-auth";
 import credentials from "next-auth/providers/credentials";
-import {DefaultUser} from "@auth/core/types";
-
-export type UserAuth = {
-    token: string;
-} & DefaultUser
+import { cookies } from "next/headers";
 
 const nextAuthOptions = {
-    providers: [
-        credentials({
-            name: "Credentials",
-            credentials: {
-                email: {label: "Email", type: "text", placeholder: "Digite o seu e-mail"},
-                password: {label: "Password", type: "password", placeholder: "Digite a sua senha"},
-            },
-            async authorize(credentials) {
-                let user: UserAuth | null = null;
-                const auth_url = "https://reqres.in/api/login";
+  providers: [
+    credentials({
+      name: "Credentials",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "text",
+          placeholder: "Digite o seu e-mail",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "Digite a sua senha",
+        },
+      },
 
-                const validate_credentials = await fetch(auth_url, {
-                    method: "POST",
-                    body: JSON.stringify({
-                        email: credentials.email,
-                        password: credentials.password,
-                    }),
-                    headers: {"Content-Type": "application/json", "x-api-key": "reqres-free-v1"},
-                });
+      async authorize(credentials) {
+        let user = null;
+        const auth_url = "http://localhost:8080/auth/login";
 
-                const response_api = await validate_credentials.json();
+        const email =
+          typeof credentials?.email === "string" ? credentials.email : null;
+        const password =
+          typeof credentials?.password === "string"
+            ? credentials.password
+            : null;
 
-                if (response_api.error) {
-                    console.error("authorize - Error:", response_api);
-                    return null;
-                }
+        const response = await fetch(auth_url, {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+          headers: { "Content-Type": "application/json" },
+        });
 
-                user = {
-                    id: 1,
-                    name: "User config",
-                    email: credentials.email,
-                    image: "https://reqres.in/img/faces/7-image.jpg"
-                };
+        const json = await response.json();
+        // console.log("Response from auth:", json);
+        if (json.status_code !== 200) {
+          console.error("Error in authentication:", json);
+          throw new Error("Invalid credentials");
+        }
 
-                return user;
+        user = {
+          name: "User logged",
+          email: email,
+          companyId: json.data.companyId,
+          token: json.data.token,
+        };
 
-            }
-        }),
-    ],
-    pages: {
-        signIn: "/login",
+        return user;
+      },
+    }),
+  ],
+
+  pages: {
+    signIn: "/login",
+  },
+  session: {
+    strategy: "jwt",
+    maxAge: 60 * 60 * 24, // 1 dia
+  },
+  jwt: {
+    maxAge: 60 * 60 * 24, // 1 dia
+  },
+  callbacks: {
+    async jwt({ token, user }: { token: any; user?: any }) {
+      if (user) {
+        token.companyId = (user as any).companyId;
+        token.name = user.name as string;
+        token.email = user.email as string;
+        token.token = user.token as string;
+      }
+      return token;
     },
-    callbacks: {
-        async jwt({token, user}) {
-            return token;
-        },
-        async session({session}) {
-            return {
-                user: {
-                    ...session.user,
-                    role: 'COMPANY'
-                },
-            }
-        },
-
-    }
+    async session({ session, token }: any) {
+      session.user = {
+        name: token.name ?? null,
+        email: token.email ?? null,
+        companyId: token.companyId ?? null,
+      };
+      session.accessToken = token.token ?? null;
+      return session;
+    },
+  },
 };
 
-
-export const {handlers, auth} = NextAuth(nextAuthOptions);
+export const { handlers, signOut, auth } = NextAuth(nextAuthOptions);

@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 import "./globals.css";
 import {FooterComponent} from "@/components/footer-component";
 import HeaderComponent from "@/components/header-component";
-import {AuthProvider} from "@/providers/auth-provider";
+import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
     title: "Vitrine Freelancers",
@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{
     children: React.ReactNode;
 }>) {
+
+
     return (
         <html lang="en">
         <head>
@@ -22,6 +24,7 @@ export default function RootLayout({children}: Readonly<{
         <body>
         <div className="h-screen ">
             <HeaderComponent/>
+             <Toaster richColors  position="top-right" />
             {children}
             <FooterComponent/>
         </div>
