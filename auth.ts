@@ -1,4 +1,5 @@
 import { ExtendedSession, ExtendedToken, ExtendedUser } from "@/types/session";
+import { error } from "console";
 import { max } from "date-fns";
 import NextAuth, { User } from "next-auth";
 import credentials from "next-auth/providers/credentials";
@@ -22,38 +23,39 @@ const nextAuthOptions = {
       },
 
       async authorize(credentials) {
-        let user = null;
-        const auth_url = "http://localhost:8080/auth/login";
+        const authUrl = "http://localhost:8080/auth/login";
 
-        const email =
-          typeof credentials?.email === "string" ? credentials.email : null;
-        const password =
-          typeof credentials?.password === "string"
-            ? credentials.password
-            : null;
+        const email = typeof credentials?.email === "string" ? credentials.email : undefined;
+        const password = typeof credentials?.password === "string" ? credentials.password : undefined;
 
-        const response = await fetch(auth_url, {
-          method: "POST",
-          body: JSON.stringify({ email, password }),
-          headers: { "Content-Type": "application/json" },
-        });
-
-        const json = await response.json();
-        // console.log("Response from auth:", json);
-        if (json.status_code !== 200) {
-          console.error("Error in authentication:", json);
-          throw new Error("Invalid credentials");
+        if (!email || !password) {
+          return null;
         }
 
-        user = {
-          name: "User logged",
-          email: email,
-          companyId: json.data.companyId,
-          token: json.data.token,
-        };
+        try {
+          const response = await fetch(authUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+          });
+          const json = await response.json();
 
-        return user;
+          if (json.status_code !== 200 || json.error != null) {
+            return null
+          }
+
+          return {
+            name: json.data.name ?? "User logged",
+            email: json.data.email ?? email,
+            companyId: json.data.companyId,
+            token: json.data.token,
+          };
+        } catch (error) {
+          console.error("Erro ao autenticar usuário.");
+          return null;
+        }
       },
+      
     }),
   ],
 
@@ -86,7 +88,7 @@ const nextAuthOptions = {
       session.accessToken = token.token ?? null;
       return session;
     },
-  },
+  }
 };
 
 export const { handlers, signOut, auth } = NextAuth(nextAuthOptions);

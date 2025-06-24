@@ -34,24 +34,23 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (values: z.infer<typeof signInSchema>) => {
+    setGlobalError(""); // Clear previous errors
     try {
       const result = await signIn("credentials", {
-        ...values,
         redirect: false,
+        ...values,
       });
 
-      console.log("Login result:", result);
-
-      if (result.error && result.error == "CredentialsSignin") {
-        setGlobalError("Usuário ou senha inválidos");
-        console.error(result.error);
+      if (result?.error) {
+         setGlobalError("Erro ao fazer login. Tente novamente.");
         return;
       }
 
       router.push("/vagas/minhas-vagas");
       router.refresh();
     } catch (error) {
-      console.log("An unexpected error occurred. Please try again.");
+      setGlobalError("Ocorreu um erro inesperado. Tente novamente.");
+      console.error(error);
     }
   };
 
