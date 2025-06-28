@@ -11,6 +11,8 @@ export default function LogoutButton() {
         signOut({redirectTo: '/'})
     }
     return (
-        <Button variant="outline" onClick={handleLogout} className='mt-4 lg:mt-0'>Sair <ExitIcon/></Button>
+        <Button variant="outline" onClick={handleLogout} className='w-full flex justify-start gap-4 mt-4 lg:mt-0'>
+            <ExitIcon/> Sair
+        </Button>
     )
 }

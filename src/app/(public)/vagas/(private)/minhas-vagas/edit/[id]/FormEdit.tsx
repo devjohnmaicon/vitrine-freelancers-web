@@ -22,7 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/app/lib/utils";
+import { cn } from "@/lib/utils";
 import { format, formatDate } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Label } from "@/components/ui/label";
