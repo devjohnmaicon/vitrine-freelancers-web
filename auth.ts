@@ -62,7 +62,7 @@ const nextAuthOptions = {
     signIn: "/login",
   },
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as "jwt",
     maxAge: 60 * 60 * 24, // 1 dia
   },
   jwt: {
@@ -84,7 +84,7 @@ const nextAuthOptions = {
       };
       session.accessToken = token.token ?? null;
       return session;
-    },
+    }
   }
 };
 

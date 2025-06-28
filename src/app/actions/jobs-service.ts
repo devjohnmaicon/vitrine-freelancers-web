@@ -3,25 +3,22 @@ import { Job } from "@/types/Job";
 import { RequestResponse } from "@/types/Requests";
 import { revalidateTag } from "next/cache";
 import { auth } from "../../../auth";
+import { DefaultSession, Session } from "next-auth";
 
-declare module "next-auth" {
-  interface User {
+
+interface CustomSession extends DefaultSession {
+  user: DefaultSession["user"] & {
+    name?: string;
     companyId?: string | number;
-  }
+  };
+  accessToken?: string;
 }
 
 const path_url_server = "http://localhost:8080/jobs";
 
-export interface Session {
-  accessToken: string;
-  user?: {
-    companyId?: string | number;
-  };
-}
-
 export async function getMyjobs() {
   try {
-    const session: Session = await auth();
+    const session = (await auth()) as CustomSession | null;
 
     if (!session || !session.accessToken) {
       console.error("User not authenticated");
@@ -96,7 +93,7 @@ export async function getJobById(id: string | number) {
 
 export async function deleteJob(id: number) {
   try {
-    const session: Session = await auth();
+    const session = (await auth()) as CustomSession | null;
     if (!session || !session.accessToken) {
       return {
         status: 401,
@@ -140,7 +137,7 @@ export async function deleteJob(id: number) {
 
 export async function createJob(data: Job) {
   try {
-    const session: Session = await auth();
+    const session = (await auth()) as CustomSession | null;
     if (!session || !session.accessToken) {
       return {
         status: 401,
@@ -186,7 +183,7 @@ export async function createJob(data: Job) {
 
 export async function editJob(jobId: number, data: Job) {
   try {
-    const session: Session = await auth();
+    const session = (await auth()) as CustomSession | null;
     const response = await fetch(`${path_url_server}/${jobId}`, {
       method: "PUT",
       headers: {
@@ -199,8 +196,7 @@ export async function editJob(jobId: number, data: Job) {
     const json = await response.json();
 
     if (
-      !response.ok ||
-      (json.status_code !== 200 && json.status_code !== 201)
+      !response.ok || (json.status_code !== 200 && json.status_code !== 201 && json.status_code !== 202)
     ) {
       console.error("Error updating job:", json);
       return {

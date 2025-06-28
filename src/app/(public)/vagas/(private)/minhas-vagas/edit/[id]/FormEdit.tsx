@@ -89,7 +89,7 @@ const FormEdit = ({ job }: { job: Job }) => {
     const response = await editJob(Number(job?.id), values as Job);
     console.log("Response from editJob:", response);
     if (response.error) {
-      toast.error(response.message);
+      toast.error(response.message || "Erro ao editar vaga");
       return;
     }
     toast.success("Vaga editada com sucesso!");
@@ -376,13 +376,13 @@ const FormEdit = ({ job }: { job: Job }) => {
           <div className="flex flex-col gap-1">
             <span className="text-sm">
               Publicado em:{" "}
-              {formatDate(job?.createdAt, "dd/MM/yyyy HH:mm", {
+              {formatDate(job?.createdAt as string, "dd/MM/yyyy HH:mm", {
                 locale: ptBR,
               })}
             </span>
             <span className="text-sm">
               Última edição:{" "}
-              {formatDate(job?.updatedAt, "dd/MM/yyyy HH:mm", {
+              {formatDate(job?.updatedAt as string, "dd/MM/yyyy HH:mm", {
                 locale: ptBR,
               })}
             </span>
