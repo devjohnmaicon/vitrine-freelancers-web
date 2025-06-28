@@ -1,9 +1,7 @@
-import Link from "next/link";
-import { auth } from "../../../auth";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import Link from "next/link";
 
-export default async function HeaderNavigation() {
-    const session = await auth()
+export default async function HeaderNavigation({ session }: { session: any }) {
 
     return (
         <nav className="hidden lg:block">

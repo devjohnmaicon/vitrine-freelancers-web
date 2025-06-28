@@ -1,3 +1,4 @@
+import HeaderProfile from "@/components/header/HeaderProfile";
 import LogoutButton from "@/components/logout-button";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,11 +9,10 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { ActionsLoggedProps } from "@/types/Header";
 import Link from "next/link";
-import { auth } from "../../../auth";
 
-export default async function HeaderActions() {
-  const session = await auth();
+export default async function HeaderActions({ session }: { session?: any }) {
   return (
     <div className="hidden items-center gap-4 lg:flex">
       {!!session ? (
@@ -27,28 +27,17 @@ export default async function HeaderActions() {
   );
 }
 
-type ActionsLoggedProps = {
-  userName: string | null | undefined;
-  userProfile: string | null | undefined;
-};
 
-const ActionsLogged = ({ userName, userProfile }: ActionsLoggedProps) => {
+export const ActionsLogged = ({
+  userName,
+  userProfile,
+}: ActionsLoggedProps) => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="flex items-center space-x-3">
-            <Link href="/perfil">
-              <img
-                src={
-                  userProfile ??
-                  "https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"
-                }
-                className="max-h-8 rounded-full"
-                alt="User Avatar"
-              />
-            </Link>
-            <h3 className="font-medium text-md">{userName}</h3>
+          <NavigationMenuTrigger >
+            <HeaderProfile userName={userName} userProfile={userProfile} />
           </NavigationMenuTrigger>
 
           <NavigationMenuContent>
@@ -66,7 +55,7 @@ const ActionsLogged = ({ userName, userProfile }: ActionsLoggedProps) => {
   );
 };
 
-const ActionsNotLogged = () => {
+export const ActionsNotLogged = () => {
   return (
     <div className="flex flex-col lg:flex-row mt-4 lg:mt-0 gap-2">
       <Button asChild variant="outline">
