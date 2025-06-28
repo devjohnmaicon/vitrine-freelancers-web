@@ -117,7 +117,19 @@ const HeaderActions = async () => {
     const userLogged = !!session;
     return (
         <>
-            {userLogged && <LogoutButton/>}
+            {userLogged && 
+            <>
+            <Link href="/perfil" className="flex items-center gap-2">
+                <img
+                    src={session?.user?.image ?? "https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"}
+                    className="max-h-8 rounded-full"
+                    alt="User Avatar"
+                />
+            </Link>
+            <h3 className="font-medium text-md">{session?.user?.name}</h3>
+            <LogoutButton/>
+            </>
+            }
             {
                 !userLogged &&
                 <div className='flex flex-col lg:flex-row mt-4 lg:mt-0 gap-2'>
@@ -127,7 +139,6 @@ const HeaderActions = async () => {
                     <Button asChild>
                         <Link href="/register">Registrar-se</Link>
                     </Button>
-
                 </div>
             }
         </>

@@ -45,8 +45,7 @@ const nextAuthOptions = {
           }
 
           return {
-            name: json.data.name ?? "User logged",
-            email: json.data.email ?? email,
+            name: json.data.name ?? "",
             companyId: json.data.companyId,
             token: json.data.token,
           };
@@ -72,9 +71,8 @@ const nextAuthOptions = {
   callbacks: {
     async jwt({ token, user }: { token: any; user?: any }) {
       if (user) {
-        token.companyId = (user as any).companyId;
         token.name = user.name as string;
-        token.email = user.email as string;
+        token.companyId = (user as any).companyId;
         token.token = user.token as string;
       }
       return token;
@@ -82,7 +80,6 @@ const nextAuthOptions = {
     async session({ session, token }: any) {
       session.user = {
         name: token.name ?? null,
-        email: token.email ?? null,
         companyId: token.companyId ?? null,
       };
       session.accessToken = token.token ?? null;
