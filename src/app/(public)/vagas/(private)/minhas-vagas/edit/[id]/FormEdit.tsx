@@ -100,7 +100,7 @@ const FormEdit = ({ job }: { job: Job }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="m-auto lg:w-1/2 flex flex-col gap-3 rounded-md shadow-2xl p-4"
+        className="m-auto lg:w-1/2 flex flex-col gap-3 rounded-md p-4 bg-zinc-50 border border-b-3 border-zinc-300"
       >
         <div className="flex justify-between items-center">
           <h2 className="text-xl py-2 font-semibold">
@@ -117,19 +117,20 @@ const FormEdit = ({ job }: { job: Job }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Vaga</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Selecione a vaga" />
                   </SelectTrigger>
+
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="motoboy">Moto entregador</SelectItem>
+                      <SelectItem value="deliveryman">
+                        Moto entregador
+                      </SelectItem>
                       <SelectItem value="sushiman">Sushiman</SelectItem>
                       <SelectItem value="balconista">Balconista</SelectItem>
                       <SelectItem value="pizzaiolo">Pizzaiolo</SelectItem>
+                      <SelectItem value="bartender">Bartender</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -177,7 +178,7 @@ const FormEdit = ({ job }: { job: Job }) => {
                         onChange={field.onChange}
                         variant="outline"
                         className={cn(
-                          "pl-3 text-left font-normal",
+                          "pl-3 text-left font-normal  bg-zinc-50",
                           !field.value && "text-muted-foreground"
                         )}
                       >
@@ -185,7 +186,7 @@ const FormEdit = ({ job }: { job: Job }) => {
                           ? formatDate(new Date(field.value), "dd/MM/yyyy", {
                               locale: ptBR,
                             })
-                          : "Selecione uma job"}
+                          : "Selecione um job"}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </FormControl>
@@ -220,11 +221,14 @@ const FormEdit = ({ job }: { job: Job }) => {
                 <FormLabel>Valor Diária</FormLabel>
                 <FormControl>
                   <Input
-                    value={field.value}
-                    type="number"
-                    step={5}
-                    placeholder="30,00"
-                    onChange={(e) => field.onChange(Number(e.target.value))}
+                  value={field.value ? `R$ ${field.value.toFixed(2).replace('.', ',')}` : ''}
+                  type="text"
+                  placeholder="R$ 35,00"
+                  onChange={(e) => {
+                  const value = e.target.value.replace(/[^\d,]/g, '').replace(',', '.');
+                  const numericValue = parseFloat(value) || 0;
+                  field.onChange(numericValue);
+                  }}
                   />
                 </FormControl>
                 <FormMessage />
@@ -367,7 +371,7 @@ const FormEdit = ({ job }: { job: Job }) => {
 
         {/* if there is a button in form, it will close the modal */}
         <div className="flex justify-between mt-4">
-          <Button asChild variant="secondary">
+          <Button asChild variant="outline">
             <Link href="/vagas/minhas-vagas" className="">
               Cancelar
             </Link>

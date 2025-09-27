@@ -27,7 +27,7 @@ const CardHeader = ({ image, jobData }: CardHeaderProps) => {
           {jobData.companyName}
         </h2>
         <p className="text-xs md:text-base text-muted-foreground mt-1">
-          Publicado: {formatDate(jobData.createdAt, "dd, MMMM. HH:mm", { locale: ptBR })}
+          Publicado: {formatDate(jobData.createdAt as string, "dd, MMMM. HH:mm", { locale: ptBR })}
         </p>
       </div>
 

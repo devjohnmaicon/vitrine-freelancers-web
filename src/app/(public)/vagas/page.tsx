@@ -26,7 +26,7 @@ export default async function JobsPage() {
           <Card.Content jobData={job}>
             <Card.Actions>
               <Link
-                className="cursor-pointer flex bg-zinc-200 rounded-md py-1.5 px-2 text-sm"
+                className="cursor-pointer flex bg-blue-100 rounded-md py-1.5 px-2 text-sm"
                 href={`${pathUrlJob}/${job.id}`}
               >
                 <Plus size={18} /> Detalhes

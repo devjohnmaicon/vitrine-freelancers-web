@@ -2,6 +2,7 @@ import React from 'react';
 import {CalendarDays, CircleDollarSign, HandCoins, MapPin, Phone, UserRound} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import {Job} from "@/types/Job";
+import { getJobTypeDisplayName } from '@/lib/utils';
 
 interface CardContetProps {
     children: React.ReactNode;
@@ -10,13 +11,13 @@ interface CardContetProps {
 
 const CardContent = ({children, jobData}: CardContetProps) => {
     const taxas = [5, , 10, 15]
-    const isDeliveryMan = jobData.position === 'delivery-man'
+    const isDeliveryMan = jobData.position === 'deliveryman'
 
     return (
         <>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-1">
                 {/*<div className="col-span-2 md:col-span-3 font-bold text-sm md:text-base pl-1.5 text-muted-foreground truncate_two_lines bg-zinc-100 rounded mb-1">{jobData.description}</div>*/}
-                <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><UserRound size={18}/>{jobData.position}</div>
+                <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><UserRound size={18}/>{getJobTypeDisplayName(jobData.position)}</div>
                 <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base">
                     <CalendarDays size={18}/> Hoje, {jobData.startTime} às {jobData.endTime}
                 </div>

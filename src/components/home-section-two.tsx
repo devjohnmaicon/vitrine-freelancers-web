@@ -9,7 +9,7 @@ import {Plus} from 'lucide-react';
 export default async function HomeSectionTwoComponent() {
     const firstThreeJobs = 3;
     const listJobs: Job[] = await getOpenJobs(0, firstThreeJobs);
-    const pathUrlJob = 'http://localhost:3000/vagas/vaga/'
+    const pathUrlJob = 'http://localhost:3000/vagas/detalhes/'
 
     return (
         <section className="w-full py-5">

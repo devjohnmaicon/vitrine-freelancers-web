@@ -7,7 +7,7 @@ export default function Layout({
 }>) {
   return (
     <div className="min-h-screen pt-5 md:pt-7">
-      <div className="ml-40 mb-2">
+      <div className="ml-40 mb-5">
         <BreadcrumbComponent />
       </div>
       {children}

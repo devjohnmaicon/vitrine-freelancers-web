@@ -37,7 +37,7 @@ export default async function MyJobsPage() {
         <Button
           asChild
           variant="outline"
-          className="text-base underline underline-offset-4"
+          className="text-base underline underline-offset-4 my-1"
         >
           <Link href={urlNewJob}>
             <UserPlus />
