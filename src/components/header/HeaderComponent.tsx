@@ -7,7 +7,7 @@ export default  async function HeaderComponent() {
 
   return (
     <header className="container m-auto border-b py-4 px-2">
-        <nav className="flex items-center justify-between ">
+        <nav className="flex items-center justify-between">
             <Header.Identity />
             <Header.Navigation session={session} />
             <Header.Actions session={session} />

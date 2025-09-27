@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const HeaderProfile = ({ userName, userProfile }: ActionsLoggedProps) => {
   return (
-    <div className="flex align-center space-x-3">
+    <div className="h-auto flex align-center space-x-3">
       <Link href="/perfil">
         <img
           src={

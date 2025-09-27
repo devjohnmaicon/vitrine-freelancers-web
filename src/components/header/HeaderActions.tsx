@@ -16,12 +16,12 @@ export default async function HeaderActions({ session }: { session?: any }) {
   return (
     <div className="hidden items-center gap-4 lg:flex">
       {!!session ? (
-        <ActionsLogged
-          userName={session?.user?.name}
-          userProfile={session?.user?.image}
-        />
+      <ActionsLogged
+        userName={session?.user?.name}
+        userProfile={session?.user?.image}
+      />
       ) : (
-        <ActionsNotLogged />
+      <ActionsNotLogged />
       )}
     </div>
   );
@@ -36,7 +36,7 @@ export const ActionsLogged = ({
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger >
+          <NavigationMenuTrigger className="border-2 border-zinc-100 py-2 flex align-center">
             <HeaderProfile userName={userName} userProfile={userProfile} />
           </NavigationMenuTrigger>
 
