@@ -21,6 +21,7 @@ import ErrorMessage from "@/components/error-message";
 import LoadingButton from "@/components/loading-button";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { BreadcrumbComponent } from "@/components/breadcump-component";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function LoginPage() {
       });
 
       if (result?.error) {
-         setGlobalError("Erro ao fazer login. Tente novamente.");
+        setGlobalError("Erro ao fazer login. Tente novamente.");
         return;
       }
 

@@ -1,10 +1,16 @@
+import { BreadcrumbComponent } from "@/components/breadcump-component";
 
-export default function Layout({children}: Readonly<{
-    children: React.ReactNode;
+export default function Layout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
 }>) {
-    return (
-        <div className="min-h-screen pt-5 md:pt-7">
-            {children}
-        </div>
-    );
+  return (
+    <div className="min-h-screen pt-5 md:pt-7">
+      <div className="ml-40 mb-2">
+        <BreadcrumbComponent />
+      </div>
+      {children}
+    </div>
+  );
 }
