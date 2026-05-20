@@ -1,30 +1,38 @@
-'use client';
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 
+const navLinks = (session: any) => [
+  { href: "/", label: "Início" },
+  { href: "/vagas", label: "Vagas" },
+  ...(session ? [{ href: "/vagas/minhas-vagas", label: "Minhas Vagas" }] : []),
+  ...(session && !session?.user?.companyId
+    ? [{ href: "/vagas/minhas-candidaturas", label: "Candidaturas" }]
+    : []),
+  { href: "/sobre", label: "Sobre" },
+];
 
-export default  function HeaderNavigation({ session }: { session: any }) {
-    let pathname = usePathname();
-    if (pathname === '/vagas/minhas-vagas'){
-        pathname = '/minhas-vagas'
-    }
+export default function HeaderNavigation({ session }: { session: any }) {
+  const pathname = usePathname();
 
-    return (
-        <nav className="hidden lg:block">
-            <Link href="/" 
-                className={`${navigationMenuTriggerStyle()} ${pathname === '/' ? 'bg-zinc-50 border-b-4 border-zinc-400' : ''}`} 
-            > Início </Link>
-            <Link href="/vagas"
-                className={`${navigationMenuTriggerStyle()} ${pathname === '/vagas' ? 'bg-zinc-50 border-b-4 border-zinc-400' : ''}`}> Vagas </Link>
-
-            {session && <Link href="/vagas/minhas-vagas" 
-                className={`${navigationMenuTriggerStyle()} ${pathname === '/minhas-vagas' ? 'bg-zinc-50 border-b-4 border-zinc-400' : ''}`}> Minhas vagas </Link>}
-            <Link href="/sobre" 
-                className={`${navigationMenuTriggerStyle()} ${pathname === '/sobre' ? 'bg-zinc-50 border-b-4 border-zinc-400' : ''}`}> Sobre </Link>
-            <Link href="/contato" 
-                className={`${navigationMenuTriggerStyle()} ${pathname === '/contato' ? 'bg-zinc-50 border-b-4 border-zinc-400' : ''}`}> Contato </Link>
-        </nav>
-    )
+  return (
+    <nav className="hidden lg:flex items-center gap-1">
+      {navLinks(session).map(({ href, label }) => {
+        const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+        return (
+          <Link
+            key={href}
+            href={href}
+            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+              isActive
+                ? "bg-blue-950 text-white"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            }`}
+          >
+            {label}
+          </Link>
+        );
+      })}
+    </nav>
+  );
 }

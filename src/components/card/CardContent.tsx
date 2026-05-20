@@ -1,45 +1,41 @@
-import React from 'react';
-import {CalendarDays, CircleDollarSign, HandCoins, MapPin, Phone, UserRound} from "lucide-react";
-import {Badge} from "@/components/ui/badge";
-import {Job} from "@/types/Job";
-import { getJobTypeDisplayName } from '@/lib/utils';
+import { CalendarDays, CircleDollarSign, MapPin, UserRound } from "lucide-react";
+import { Job } from "@/types/Job";
+import { getJobTypeDisplayName } from "@/lib/utils";
 
-interface CardContetProps {
-    children: React.ReactNode;
-    jobData: Job;
+interface CardContentProps {
+  children: React.ReactNode;
+  jobData: Job;
 }
 
-const CardContent = ({children, jobData}: CardContetProps) => {
-    const taxas = [5, , 10, 15]
-    const isDeliveryMan = jobData.position === 'deliveryman'
+const CardContent = ({ children, jobData }: CardContentProps) => {
+  const location = [(jobData as any).city, (jobData as any).state]
+    .filter(Boolean)
+    .join(", ");
 
-    return (
-        <>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-1">
-                {/*<div className="col-span-2 md:col-span-3 font-bold text-sm md:text-base pl-1.5 text-muted-foreground truncate_two_lines bg-zinc-100 rounded mb-1">{jobData.description}</div>*/}
-                <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><UserRound size={18}/>{getJobTypeDisplayName(jobData.position)}</div>
-                <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base">
-                    <CalendarDays size={18}/> Hoje, {jobData.startTime} às {jobData.endTime}
-                </div>
-                <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><CircleDollarSign size={18}/> Diária:
-                    R$ {jobData.dailyValue},00
-                </div>
-                {isDeliveryMan &&
-                    < div className="flex items-center gap-0.5 md:gap-1 flex-wrap"><HandCoins size={18}/>Taxas:
-                        {taxas && taxas.map((tax, index) => (
-                            <Badge key={index} variant={'secondary'} className='text-xs px-1'>{tax}</Badge>
-                        ))}
-                    </div>
-                }
-
-                <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><Phone size={18}/>(61) 99999-9999</div>
-                <div className="flex items-center gap-0.5 md:gap-1 text-sm md:text-base"><MapPin size={18}/> Valparaíso, Goiás</div>
-            </div>
-            {
-                children
-            }
-        </>
-    )
+  return (
+    <div className="mt-3">
+      <p className="text-sm font-semibold text-slate-800 mb-2">
+        {getJobTypeDisplayName(jobData.position)}
+      </p>
+      <div className="flex flex-wrap gap-x-4 gap-y-1">
+        <span className="flex items-center gap-1 text-xs text-slate-500">
+          <CalendarDays size={13} />
+          {jobData.date} · {jobData.startTime}–{jobData.endTime}
+        </span>
+        <span className="flex items-center gap-1 text-xs text-slate-500">
+          <CircleDollarSign size={13} />
+          R$ {jobData.dailyValue},00
+        </span>
+        {location && (
+          <span className="flex items-center gap-1 text-xs text-slate-500">
+            <MapPin size={13} />
+            {location}
+          </span>
+        )}
+      </div>
+      {children}
+    </div>
+  );
 };
 
 export default CardContent;

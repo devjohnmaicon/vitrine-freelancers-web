@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
-import { CheckCircle, Loader2, Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { CheckCircle, Heart, Loader2, LogIn } from "lucide-react";
 import { applyToJob } from "@/app/actions/applications-service";
 import { toast } from "sonner";
 
@@ -23,7 +22,7 @@ export default function ApplyButton({
 
   if (isClosed) {
     return (
-      <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-gray-100 text-gray-500 text-sm font-medium cursor-not-allowed">
+      <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-100 text-slate-400 text-sm font-medium">
         Vaga encerrada
       </span>
     );
@@ -33,18 +32,18 @@ export default function ApplyButton({
     return (
       <a
         href="/login"
-        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-blue-950 text-white text-sm font-medium hover:bg-blue-900 transition-colors"
+        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-950 text-white text-sm font-medium hover:bg-blue-900 transition-colors"
       >
-        <Heart size={16} />
-        Tenho Interesse
+        <LogIn size={15} />
+        Entrar para candidatar-se
       </a>
     );
   }
 
   if (applied) {
     return (
-      <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-green-100 text-green-800 text-sm font-medium">
-        <CheckCircle size={16} />
+      <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 text-sm font-semibold border border-emerald-200">
+        <CheckCircle size={15} />
         Candidatura enviada
       </span>
     );
@@ -73,22 +72,22 @@ export default function ApplyButton({
   }
 
   return (
-    <Button
+    <button
       onClick={handleApply}
       disabled={loading}
-      className="bg-blue-950 hover:bg-blue-900 text-white gap-1.5"
+      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-950 text-white text-sm font-medium hover:bg-blue-900 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
     >
       {loading ? (
         <>
-          <Loader2 size={16} className="animate-spin" />
+          <Loader2 size={15} className="animate-spin" />
           Enviando...
         </>
       ) : (
         <>
-          <Heart size={16} />
+          <Heart size={15} />
           Tenho Interesse
         </>
       )}
-    </Button>
+    </button>
   );
 }

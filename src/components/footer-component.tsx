@@ -1,27 +1,33 @@
 export function FooterComponent() {
-    return (
-        <footer className="  shadow-sm  dark:bg-gray-800">
-            <div className="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:flex-row flex-col-reverse items-center justify-between gap-2">
-                <span className="text-xs md:text-base  text-gray-500 sm:text-center dark:text-gray-400">© 2024
-                    <a href="/" className="hover:underline"> Vitrine-Freelancers™</a>. Todos os direitos reservados.
-                </span>
+  return (
+    <footer className="bg-white border-t border-slate-200 mt-auto">
+      <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded-md bg-blue-950 flex items-center justify-center">
+            <span className="text-white text-[10px] font-bold">VF</span>
+          </div>
+          <span className="text-sm font-semibold text-slate-700">Vitrine Freelancers</span>
+          <span className="text-slate-300 text-sm hidden sm:block">·</span>
+          <span className="text-xs text-slate-400 hidden sm:block">© {new Date().getFullYear()}</span>
+        </div>
 
-                <ul className="flex flex-wrap items-center justify-center lg:mt-3 text-sm font-medium text-gray-500 dark:text-gray-400">
-                    <li>
-                        <a href="/" className="hover:underline me-4 md:me-6">Início</a>
-                    </li>
-                    <li>
-                        <a href="/vagas" className="hover:underline me-4 md:me-6">Vagas</a>
-                    </li>
-                    <li>
-                        <a href="/sobre" className="hover:underline me-4 md:me-6">Sobre</a>
-                    </li>
-                    <li>
-                        <a href="/contato" className="hover:underline">Contato</a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
-
-    );
+        <nav className="flex items-center gap-5">
+          {[
+            { href: "/", label: "Início" },
+            { href: "/vagas", label: "Vagas" },
+            { href: "/sobre", label: "Sobre" },
+            { href: "/contato", label: "Contato" },
+          ].map(({ href, label }) => (
+            <a
+              key={href}
+              href={href}
+              className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </footer>
+  );
 }

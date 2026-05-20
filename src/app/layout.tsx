@@ -15,23 +15,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body>
-        <div className="h-screen ">
-          <HeaderComponent />
-
-          <Toaster richColors position="top-right" />
-          {children}
-          <FooterComponent />
-        </div>
+      <body className="min-h-screen flex flex-col bg-slate-50">
+        <HeaderComponent />
+        <Toaster richColors position="top-right" />
+        <main className="flex-1">{children}</main>
+        <FooterComponent />
       </body>
     </html>
   );

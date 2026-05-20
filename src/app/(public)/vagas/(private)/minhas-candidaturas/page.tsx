@@ -1,17 +1,50 @@
 import { getMyApplications } from "@/app/actions/applications-service";
-import { Application, APPLICATION_STATUS_LABEL, APPLICATION_STATUS_COLOR } from "@/types/Application";
+import {
+  Application,
+  APPLICATION_STATUS_LABEL,
+  APPLICATION_STATUS_COLOR,
+} from "@/types/Application";
 import { formatDate } from "date-fns";
 import { ptBR } from "date-fns/locale/pt-BR";
-import { CalendarDays, Briefcase, Building2 } from "lucide-react";
+import { Briefcase, Building2, CalendarDays, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 function StatusBadge({ status }: { status: Application["status"] }) {
   return (
     <span
-      className={`text-xs font-semibold px-2.5 py-1 rounded-full ${APPLICATION_STATUS_COLOR[status]}`}
+      className={`text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap ${APPLICATION_STATUS_COLOR[status]}`}
     >
       {APPLICATION_STATUS_LABEL[status]}
     </span>
+  );
+}
+
+function ApplicationCard({ app }: { app: Application }) {
+  return (
+    <div className="bg-white rounded-xl border border-slate-200 p-4 hover:shadow-sm transition-shadow">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0">
+          <p className="font-semibold text-slate-900">{app.jobPosition}</p>
+          <div className="flex items-center gap-1.5 text-sm text-slate-500 mt-0.5">
+            <Building2 size={13} />
+            {app.companyName}
+          </div>
+        </div>
+        <StatusBadge status={app.status} />
+      </div>
+      <div className="flex items-center justify-between mt-3">
+        <div className="flex items-center gap-1 text-xs text-slate-400">
+          <CalendarDays size={12} />
+          {formatDate(app.createdAt, "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}
+        </div>
+        <Link
+          href={`/vagas/detalhes/${app.jobId}`}
+          className="inline-flex items-center gap-1 text-xs font-medium text-blue-950 hover:underline"
+        >
+          Ver vaga <ArrowRight size={12} />
+        </Link>
+      </div>
+    </div>
   );
 }
 
@@ -25,80 +58,56 @@ export default async function MinhasCandidaturasPage() {
     (a) => a.status === "SELECTED" || a.status === "REJECTED"
   );
 
-  if (applications.length === 0) {
-    return (
-      <div className="max-w-2xl m-auto mt-10 text-center text-gray-500">
-        <Briefcase size={40} className="mx-auto mb-3 opacity-40" />
-        <p className="text-lg font-medium">Nenhuma candidatura ainda</p>
-        <p className="text-sm mt-1">
-          Explore as{" "}
-          <Link href="/vagas" className="text-blue-950 underline">
-            vagas disponíveis
-          </Link>{" "}
-          e demonstre interesse.
+  return (
+    <div className="max-w-2xl mx-auto px-4 py-10">
+      <div className="mb-8">
+        <p className="text-xs font-semibold tracking-widest text-blue-950 uppercase mb-1">
+          Meu perfil
+        </p>
+        <h1 className="text-2xl font-bold text-slate-900">Minhas Candidaturas</h1>
+        <p className="text-sm text-slate-500 mt-1">
+          Acompanhe o status de todas as suas candidaturas.
         </p>
       </div>
-    );
-  }
 
-  function ApplicationCard({ app }: { app: Application }) {
-    return (
-      <div className="bg-white border border-zinc-200 rounded-lg p-4 flex flex-col gap-2 shadow-sm">
-        <div className="flex justify-between items-start gap-2">
-          <div>
-            <p className="font-semibold text-base">{app.jobPosition}</p>
-            <div className="flex items-center gap-1 text-sm text-muted-foreground mt-0.5">
-              <Building2 size={14} />
-              {app.companyName}
-            </div>
-          </div>
-          <StatusBadge status={app.status} />
-        </div>
-        <div className="flex items-center gap-1 text-xs text-muted-foreground">
-          <CalendarDays size={13} />
-          Candidatou-se em{" "}
-          {formatDate(app.createdAt, "dd 'de' MMMM, HH:mm", { locale: ptBR })}
-        </div>
-        <div className="mt-1">
+      {applications.length === 0 ? (
+        <div className="flex flex-col items-center gap-3 py-20 text-slate-400">
+          <Briefcase size={40} className="opacity-40" />
+          <p className="font-medium text-slate-500">Nenhuma candidatura ainda</p>
           <Link
-            href={`/vagas/detalhes/${app.jobId}`}
-            className="text-xs text-blue-950 underline hover:text-blue-800"
+            href="/vagas"
+            className="text-sm text-blue-950 font-medium hover:underline"
           >
-            Ver vaga
+            Explorar vagas disponíveis
           </Link>
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="max-w-2xl m-auto pb-10 space-y-6">
-      <h1 className="text-xl font-semibold">Minhas Candidaturas</h1>
-
-      {active.length > 0 && (
-        <section>
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-            Em andamento
-          </h2>
-          <div className="space-y-3">
-            {active.map((app) => (
-              <ApplicationCard key={app.id} app={app} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {concluded.length > 0 && (
-        <section>
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-            Encerradas
-          </h2>
-          <div className="space-y-3">
-            {concluded.map((app) => (
-              <ApplicationCard key={app.id} app={app} />
-            ))}
-          </div>
-        </section>
+      ) : (
+        <div className="space-y-8">
+          {active.length > 0 && (
+            <section>
+              <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">
+                Em andamento · {active.length}
+              </h2>
+              <div className="space-y-3">
+                {active.map((app) => (
+                  <ApplicationCard key={app.id} app={app} />
+                ))}
+              </div>
+            </section>
+          )}
+          {concluded.length > 0 && (
+            <section>
+              <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">
+                Encerradas · {concluded.length}
+              </h2>
+              <div className="space-y-3">
+                {concluded.map((app) => (
+                  <ApplicationCard key={app.id} app={app} />
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
       )}
     </div>
   );
