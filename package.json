@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "jserver": "yarn json-server  -p 3333 db.json"
+    "jserver": "json-server -p 3333 db.json"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

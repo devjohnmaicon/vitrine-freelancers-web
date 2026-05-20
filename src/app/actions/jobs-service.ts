@@ -1,10 +1,9 @@
 "use server";
 import { Job } from "@/types/Job";
-import { RequestResponse } from "@/types/Requests";
 import { revalidateTag } from "next/cache";
 import { auth } from "../../../auth";
-import { DefaultSession, Session } from "next-auth";
-
+import { DefaultSession } from "next-auth";
+import { apiFetch, BASE_URL } from "@/lib/api-client";
 
 interface CustomSession extends DefaultSession {
   user: DefaultSession["user"] & {
@@ -14,77 +13,53 @@ interface CustomSession extends DefaultSession {
   accessToken?: string;
 }
 
-const path_url_server = "http://localhost:8080/jobs";
-
-export async function getMyjobs() {
+export async function getMyjobs(): Promise<Job[]> {
   try {
     const session = (await auth()) as CustomSession | null;
+    if (!session || !session.accessToken) return [];
 
-    if (!session || !session.accessToken) {
-      console.error("User not authenticated");
-      return [];
-    }
+    const IS_MOCK = process.env.NEXT_PUBLIC_API_MOCK === "true";
+    const path = IS_MOCK
+      ? `/jobs?companyId=${session.user?.companyId}`
+      : `/jobs/company/${session.user?.companyId}`;
 
-    const response = await fetch(
-      `${path_url_server}/company/${session?.user?.companyId}`,
-      {
-        next: { revalidate: 30, tags: ["myjobs"] },
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: session.accessToken,
-        },
-      }
-    );
-
-    const json: RequestResponse = await response.json();
-
-    return json.data || [];
+    const data = await apiFetch<Job[]>(path, {
+      token: session.accessToken,
+      tags: ["myjobs"],
+      revalidate: 30,
+    });
+    return data ?? [];
   } catch (error) {
     console.error("Error in getMyjobs:", error);
     return [];
   }
 }
 
-export async function getOpenJobs(page: number = 0, size: number = 10) {
+export async function getOpenJobs(
+  page: number = 0,
+  size: number = 10
+): Promise<Job[]> {
   try {
-    const url = `${path_url_server}?page=${page}&size=${size}`;
-    const response = await fetch(url, {
-      next: { revalidate: 10, tags: ["open-jobs"] },
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
+    const IS_MOCK = process.env.NEXT_PUBLIC_API_MOCK === "true";
+    const path = IS_MOCK ? "/jobs" : `/jobs?page=${page}&size=${size}`;
+    const data = await apiFetch<Job[]>(path, {
+      tags: ["open-jobs"],
+      revalidate: 10,
     });
-
-    return await response.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching open jobs:", error);
     return [];
   }
 }
 
-export async function getJobById(id: string | number) {
+export async function getJobById(id: string | number): Promise<Job | null> {
   try {
-    const response = await fetch(`${path_url_server}/${id}`, {
-      next: { revalidate: 60, tags: ["get-job-id"] },
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
+    const data = await apiFetch<Job>(`/jobs/${id}`, {
+      tags: ["get-job-id"],
+      revalidate: 60,
     });
-
-    if (!response.ok) {
-      console.error(
-        `Failed to fetch job by ID: ${id}, status: ${response.status}`
-      );
-      return null;
-    }
-
-    const json: RequestResponse = await response.json();
-
-    if (json.status_code !== 200) {
-      console.error("Error fetching job by ID:", json);
-      return null;
-    }
-
-    return json.data;
+    return data ?? null;
   } catch (error) {
     console.error("Network error fetching job by ID:", error);
     return null;
@@ -95,13 +70,10 @@ export async function deleteJob(id: number) {
   try {
     const session = (await auth()) as CustomSession | null;
     if (!session || !session.accessToken) {
-      return {
-        status: 401,
-        error: "User not authenticated",
-      };
+      return { status: 401, error: "User not authenticated" };
     }
 
-    const response = await fetch(`${path_url_server}/${id}`, {
+    const res = await fetch(`${BASE_URL}/jobs/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -109,29 +81,16 @@ export async function deleteJob(id: number) {
       },
     });
 
-    const json: RequestResponse = await response.json();
-
-    if (!response.ok || json.status_code !== 200) {
-      console.error("Error deleting job:", json);
-      return {
-        status: json.status_code,
-        message: json.message,
-        error: json.error,
-      };
-    }
-
+    const json = await res.json();
     revalidateTag("myjobs");
     return {
-      status: json.status_code,
-      message: json.message || "Job deleted successfully",
-      error: null,
+      status: json.status_code ?? res.status,
+      message: json.message ?? "Job deleted",
+      error: json.error ?? null,
     };
   } catch (error) {
     console.error("Network error deleting job:", error);
-    return {
-      status: 500,
-      error: "Network error deleting job",
-    };
+    return { status: 500, error: "Network error deleting job" };
   }
 }
 
@@ -139,81 +98,41 @@ export async function createJob(data: Job) {
   try {
     const session = (await auth()) as CustomSession | null;
     if (!session || !session.accessToken) {
-      return {
-        status: 401,
-        error: "User not authenticated",
-      };
+      return { status: 401, error: "User not authenticated" };
     }
 
-    const response = await fetch(`${path_url_server}`, {
+    const result = await apiFetch<Job>("/jobs", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.accessToken}`,
-      },
-      body: JSON.stringify({ ...data, company_id: session.user?.companyId }),
+      token: session.accessToken,
+      body: { ...data, company_id: session.user?.companyId },
     });
 
-    const json: RequestResponse = await response.json();
-
-    if (!response.ok || json.status_code !== 201) {
-      console.error("Error creating job:", json);
-      return {
-        status: json.status_code,
-        message: json.message || "Failed to create job",
-        error: json.message,
-      };
-    }
-
     revalidateTag("myjobs");
-    return {
-      status: json.status_code,
-      message: json.message || "Job created successfully",
-      data: json.data,
-      error: null,
-    };
-  } catch (error) {
-    console.error("Network error creating job:", error);
-    return {
-      status: 500,
-      error: "Network error creating job",
-    };
+    return { status: 201, message: "Job criado com sucesso", data: result, error: null };
+  } catch (error: any) {
+    console.error("Error creating job:", error);
+    return { status: 500, error: error.message ?? "Erro ao criar vaga" };
   }
 }
 
 export async function editJob(jobId: number, data: Job) {
   try {
     const session = (await auth()) as CustomSession | null;
-    const response = await fetch(`${path_url_server}/${jobId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session?.accessToken}`,
-      },
-      body: JSON.stringify({ ...data, company_id: session?.user?.companyId }),
-    });
-
-    const json = await response.json();
-
-    if (
-      !response.ok || (json.status_code !== 200 && json.status_code !== 201 && json.status_code !== 202)
-    ) {
-      console.error("Error updating job:", json);
-      return {
-        status: json.status_code,
-        error: json.message,
-      };
+    if (!session || !session.accessToken) {
+      return { status: 401, error: "User not authenticated" };
     }
+
+    const result = await apiFetch<Job>(`/jobs/${jobId}`, {
+      method: "PUT",
+      token: session.accessToken,
+      body: { ...data, company_id: session.user?.companyId },
+    });
 
     revalidateTag("myjobs");
     revalidateTag("get-job-id");
-
-    return json.data;
-  } catch (error) {
+    return result;
+  } catch (error: any) {
     console.error("Network error updating job:", error);
-    return {
-      status: 500,
-      error: "Network error updating job",
-    };
+    return { status: 500, error: error.message ?? "Erro ao editar vaga" };
   }
 }

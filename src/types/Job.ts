@@ -4,15 +4,18 @@ export type JobType = "FIXO" | "FREELANCER";
 export type Job = {
     id?: number;
     type: JobType;
-    position: string
+    position: string;
     description: string;
     date: string;
     startTime: string;
     endTime: string;
     dailyValue: number;
-    taxValues: string;
+    taxValues?: string;
     requirements?: string;
     open?: boolean;
+    openUntil?: string;
+    applicationsCount?: number;
+    hasNewApplications?: boolean;
     createdAt?: string;
     updatedAt?: string;
     companyId?: number;

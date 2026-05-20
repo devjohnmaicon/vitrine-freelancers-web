@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../auth";
 
-const PRIVATE_PATHS = ['/vagas/minhas-vagas']
+const PRIVATE_PATHS = ['/vagas/minhas-vagas', '/vagas/minhas-candidaturas']
 
 export async function middleware(request: NextRequest) {
   const {pathname}= request.nextUrl;
-  const isPrivate = PRIVATE_PATHS.includes(pathname);
+  const isPrivate = PRIVATE_PATHS.some((p) => pathname.startsWith(p));
 
   if (isPrivate) {
     const session = await auth();
