@@ -15,7 +15,7 @@ import { ptBR } from "date-fns/locale/pt-BR";
 import { formatDate, differenceInMinutes } from "date-fns";
 import { getJobTypeDisplayName } from "@/lib/utils";
 import ApplyButton from "@/components/apply-button";
-import { auth } from "../../../../../auth";
+import { auth } from "../../../../../../auth";
 import { DefaultSession } from "next-auth";
 
 interface CustomSession extends DefaultSession {
